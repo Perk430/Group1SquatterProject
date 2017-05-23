@@ -15,12 +15,13 @@
 </form>
 
 <table border="1">
-    <tr><th>Customer ID</th><th>Company Name</th></tr>
+    <tr><th>Address 1</th><th>Address 2</th></tr>
     @foreach (var item in ViewBag.Message)
     {
         <tr>
             <td>@item.Address1</td>
             <td>@item.Address2</td>
+            <td><a href="/DB/DeleteData?DeleteName=@item.Address1" onclick="return confirm('Are you sure?')">Delete</a></td>
         </tr>
     }
 </table>

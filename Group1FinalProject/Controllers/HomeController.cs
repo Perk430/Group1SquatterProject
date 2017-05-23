@@ -22,13 +22,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult DBView()
         {
-            SquatDBEntities db = new SquatDBEntities();
-
-            List<Address> AdList = db.Addresses.ToList();
-
-            ViewBag.Message = AdList;
-
-            return View();
+            return RedirectToAction("../DB/PullData");
         }
 
         public ActionResult FAQView()

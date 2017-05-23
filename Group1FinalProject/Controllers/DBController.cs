@@ -9,6 +9,7 @@ namespace Group1FinalProject.Controllers
 {
     public class DBController : Controller
     {
+        SquatDBEntities db = new SquatDBEntities();
         // GET: DB
         public ActionResult DB()
         {
@@ -23,18 +24,27 @@ namespace Group1FinalProject.Controllers
 
             ViewBag.Message = AdList;
 
-            return View("DBView");
+            return View("../Home/DBView");
         }
 
         public ActionResult SendData(Address Input)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
             db.Addresses.Add(Input);
 
             db.SaveChanges();
 
-            return RedirectToAction ("../Home/DBView");
+            return RedirectToAction ("PullData");
+        }
+
+        public ActionResult DeleteData(string DeleteName)
+        {
+            Address ToDelete = db.Addresses.Find(DeleteName);
+
+            db.Addresses.Remove(ToDelete);
+
+            db.SaveChanges();
+
+            return RedirectToAction("PullData");
         }
     }
 }
