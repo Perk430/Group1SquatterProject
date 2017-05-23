@@ -1,0 +1,26 @@
+﻿@model Group1FinalProject.Models.Address
+
+@{
+    ViewBag.Title = "DBView";
+}
+
+
+<form name="input" action="/DB/SendData" method="post">
+    <label>Address1 </label><input type="Text" name="Address1" id="Address1" /><br />
+    <br />
+    <label>Address2 </label><input type="Text" name="Address2" id="Address2" /><br />
+    <br />
+    <br />
+    <input type="submit" value="Submit" />
+</form>
+
+<table border="1">
+    <tr><th>Customer ID</th><th>Company Name</th></tr>
+    @foreach (var item in ViewBag.Message)
+    {
+        <tr>
+            <td>@item.Address1</td>
+            <td>@item.Address2</td>
+        </tr>
+    }
+</table>

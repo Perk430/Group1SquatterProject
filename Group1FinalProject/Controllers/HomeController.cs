@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Group1FinalProject.Models;
 
 namespace Group1FinalProject.Controllers
 {
@@ -13,16 +14,32 @@ namespace Group1FinalProject.Controllers
             return View();
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
+        public ActionResult APIView()
+        { 
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult DBView()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<Address> AdList = db.Addresses.ToList();
+
+            ViewBag.Message = AdList;
+
+            return View();
+        }
+
+        public ActionResult FAQView()
         {
             ViewBag.Message = "Your contact page.";
+
+            return View();
+        }
+
+        public ActionResult MapsView()
+        {
 
             return View();
         }
