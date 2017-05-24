@@ -45,33 +45,59 @@
         <input id="submit" type="button" value="Place Marker">
     </div>
     <div id="map" style="width:500px;height:500px;"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script>
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 8,
-          center: { lat: 42.331429, lng: -83.045753 }
-        });
-        var geocoder = new google.maps.Geocoder();
-
-        document.getElementById('submit').addEventListener('click', function() {
-          geocodeAddress(geocoder, map);
-        });
-      }
-
-      function geocodeAddress(geocoder, resultsMap) {
-        var address = document.getElementById('address').value;
-        geocoder.geocode({'address': address}, function(results, status) {
-          if (status === 'OK') {
-            resultsMap.setCenter(results[0].geometry.location);
-            var marker = new google.maps.Marker({
-              map: resultsMap,
-              position: results[0].geometry.location
+        function initMap()
+        {
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: { lat: 42.331429, lng: -83.045753 }
             });
-          } else {
-            alert('Geocode was not successful for the following reason: ' + status);
-          }
+            var geocoder = new google.maps.Geocoder();
+
+            document.getElementById('submit').addEventListener('click', function () {
+                geocodeAddress(geocoder, map);
+            });
+        }
+
+        function geocodeAddress(geocoder, resultsMap)
+        {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK')
+                {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    })
+                PassData(address);
+                } else
+                {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+        
+        function PassData(address) {
+            //create javascript object
+            var model = new Object();
+            model.GeoLoc = address;
+
+            jQuery.ajax({
+                type: "POST",
+                url: "@Url.Action("../MAP/SendData")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ coordinates: model }),
+            success: function (data) {
+                alert(data);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
         });
-      }
+        }
     </script>
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
