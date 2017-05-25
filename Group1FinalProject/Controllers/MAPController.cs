@@ -25,5 +25,16 @@ namespace Group1FinalProject.Controllers
 
             return View("../Home/MapsView");
         }
+
+        public ActionResult PullData()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<GeoLocation> PinList = db.GeoLocations.ToList();
+
+            ViewBag.Locations = PinList;
+
+            return View("../Home/MapsView");
+        }
     }
 }

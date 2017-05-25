@@ -40,20 +40,42 @@
     </style>
 </head>
 <body>
+
     <div id="floating-panel">
         <input id="address" type="textbox" value="Detroit, MI">
         <input id="submit" type="button" value="Place Marker">
     </div>
     <div id="map" style="width:500px;height:500px;"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script>
+    <script type="text/javascript">
+
+        var modelarray = new Array();
+        modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+        
+        for (var i = 0; i < modelarray.length; i++)
+        {
+            document.write(modelarray[i].GeoLoc)
+        }
+
+
         function initMap()
         {
+            var modelarray = new Array();
+            modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+         
             var map = new google.maps.Map(document.getElementById('map'), {
                 zoom: 8,
                 center: { lat: 42.331429, lng: -83.045753 }
             });
+            
+            var PreLoadgeocoder = new google.maps.Geocoder();
             var geocoder = new google.maps.Geocoder();
+
+            for (var i = 0; i < modelarray.length; i++)
+            {   
+                var location = modelarray[i].GeoLoc;
+                PreGeocodeAddress(location, PreLoadgeocoder, map);
+            }
 
             document.getElementById('submit').addEventListener('click', function () {
                 geocodeAddress(geocoder, map);
@@ -78,7 +100,26 @@
                 }
             });
         }
-        
+
+        function PreGeocodeAddress(location, PreLoadgeocoder, resultsMap)
+        {
+            var address = location;
+ 
+            PreLoadgeocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK')
+                {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    })
+                } else
+                {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
         function PassData(address) {
             //create javascript object
             var model = new Object();

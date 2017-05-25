@@ -34,6 +34,11 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult MapsView()
         {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<GeoLocation> PinList = db.GeoLocations.ToList();
+
+            ViewBag.Locations = PinList;
 
             return View();
         }
