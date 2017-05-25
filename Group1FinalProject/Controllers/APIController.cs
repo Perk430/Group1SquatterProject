@@ -95,12 +95,10 @@ namespace Group1FinalProject.Controllers
                 ViewBag.Message = "Not a house!";
             }
 
-
             TempData["oneLine"] = oneLine;
             TempData["absenteeind"] = absenteeind;
             TempData["propclass"] = propclass;
             TempData["propsubtype"] = propsubtype;
-
 
             // return View("../Home/ReportView");
             return RedirectToAction("ReportView", "Home");

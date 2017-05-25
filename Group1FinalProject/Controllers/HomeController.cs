@@ -38,12 +38,10 @@ namespace Group1FinalProject.Controllers
 
             List<GeoLocation> PinList = db.GeoLocations.ToList();
 
-       
             ViewBag.oneLine = TempData["oneLine"];
             ViewBag.absenteeind = TempData["absenteeind"];
             ViewBag.propclass = TempData["propclass"];
             ViewBag.propsubtype = TempData["propsubtype"];
-
 
             ViewBag.Locations = PinList;
 
