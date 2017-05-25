@@ -24,7 +24,7 @@ namespace Group1FinalProject.Controllers
 
             ViewBag.Message = AdList;
 
-            return View("../Home/DBView");
+            return View("../Home/OwnerView");
         }
 
         public ActionResult SendData(Address Input)

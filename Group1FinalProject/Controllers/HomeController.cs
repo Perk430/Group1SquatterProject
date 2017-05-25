@@ -14,13 +14,7 @@ namespace Group1FinalProject.Controllers
             return View();
         }
 
-        public ActionResult APIView()
-        { 
-
-            return View();
-        }
-
-        public ActionResult DBView()
+        public ActionResult OwnerView()
         {
             return RedirectToAction("../DB/PullData");
         }
@@ -32,7 +26,7 @@ namespace Group1FinalProject.Controllers
             return View();
         }
 
-        public ActionResult MapsView()
+        public ActionResult ReportView()
         {
             SquatDBEntities db = new SquatDBEntities();
 

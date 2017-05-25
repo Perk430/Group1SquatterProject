@@ -12,6 +12,14 @@
           <Property Name="Address1" Type="nvarchar" MaxLength="100" Nullable="false" />
           <Property Name="Address2" Type="nvarchar" MaxLength="100" Nullable="false" />
         </EntityType>
+        <EntityType Name="datatable">
+          <Key>
+            <PropertyRef Name="dataaddress" />
+          </Key>
+          <Property Name="dataaddress" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Ifsquat" Type="char" MaxLength="10" Nullable="false" />
+          <Property Name="username" Type="nchar" MaxLength="50" Nullable="false" />
+        </EntityType>
         <EntityType Name="GeoLocation">
           <Key>
             <PropertyRef Name="GeoLoc" />
@@ -20,6 +28,7 @@
         </EntityType>
         <EntityContainer Name="SquatDBModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="datatable" EntityType="Self.datatable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeoLocation" EntityType="Self.GeoLocation" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -36,12 +45,21 @@
         <EntityContainer Name="SquatDBEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="GeoLocations" EntityType="SquatDBModel.GeoLocation" />
+          <EntitySet Name="datatables" EntityType="SquatDBModel.datatable" />
         </EntityContainer>
         <EntityType Name="GeoLocation">
           <Key>
             <PropertyRef Name="GeoLoc" />
           </Key>
           <Property Name="GeoLoc" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="datatable">
+          <Key>
+            <PropertyRef Name="dataaddress" />
+          </Key>
+          <Property Name="dataaddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Ifsquat" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -61,6 +79,15 @@
             <EntityTypeMapping TypeName="SquatDBModel.GeoLocation">
               <MappingFragment StoreEntitySet="GeoLocation">
                 <ScalarProperty Name="GeoLoc" ColumnName="GeoLoc" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="datatables">
+            <EntityTypeMapping TypeName="SquatDBModel.datatable">
+              <MappingFragment StoreEntitySet="datatable">
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="Ifsquat" ColumnName="Ifsquat" />
+                <ScalarProperty Name="dataaddress" ColumnName="dataaddress" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

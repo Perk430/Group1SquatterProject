@@ -6,7 +6,8 @@
     <edmx:Diagrams>
       <Diagram DiagramId="8734437fda064de488c091627a022017" Name="Diagram1">
         <EntityTypeShape EntityType="SquatDBModel.Address" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="SquatDBModel.GeoLocation" Width="1.5" PointX="3.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SquatDBModel.GeoLocation" Width="1.5" PointX="2.375" PointY="0.75" />
+        <EntityTypeShape EntityType="SquatDBModel.datatable" Width="1.5" PointX="0.75" PointY="2.375" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

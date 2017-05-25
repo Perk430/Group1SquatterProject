@@ -27,5 +27,6 @@ namespace Group1FinalProject.Models
     
         public virtual DbSet<Address> Addresses { get; set; }
         public virtual DbSet<GeoLocation> GeoLocations { get; set; }
+        public virtual DbSet<datatable> datatables { get; set; }
     }
 }
