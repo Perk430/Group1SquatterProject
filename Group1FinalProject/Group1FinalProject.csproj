@@ -211,6 +211,9 @@
     <Compile Include="Models\Address.cs">
       <DependentUpon>SquatterDB.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\datatable.cs">
+      <DependentUpon>SquatterDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\EntryData.cs" />
     <Compile Include="Models\GeoLocation.cs">
       <DependentUpon>SquatterDB.tt</DependentUpon>

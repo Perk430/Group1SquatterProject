@@ -35,7 +35,10 @@ namespace Group1FinalProject.Controllers
             request.Accept = "application/xml";
 
             request.Headers.Add("APIKey", "0ad6a63ba8d89e1de14de3893e417889");
-
+            string oneLine = "";
+            string absenteeind = "";
+            string propclass = "";
+            string propsubtype = "";
             //request.UserAgent = @"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
             try
             {
@@ -51,40 +54,40 @@ namespace Group1FinalProject.Controllers
 
             try
             {
-                ViewBag.absenteeind = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/absenteeInd").InnerText;
+                absenteeind = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/absenteeInd").InnerText;
             }
             catch
             {
-                ViewBag.absenteeind = "No Info";
+                absenteeind = "No Info";
             }
 
 
             try
             {
-                ViewBag.oneLine = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/address/oneLine").InnerText;
+                oneLine = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/address/oneLine").InnerText;
             }
             catch
             {
-                ViewBag.oneLine = "No info";
+                oneLine = "No info";
             }
 
 
             try
             {
-                ViewBag.propclass = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propclass").InnerText;
+                propclass = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propclass").InnerText;
             }
             catch
             {
-                ViewBag.propclass = "No Info";
+                propclass = "No Info";
             }
 
             try
             {
-                ViewBag.propsubtype = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propsubtype").InnerText;
+                propsubtype = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propsubtype").InnerText;
             }
             catch
             {
-                ViewBag.propsubtype = "No info";
+                propsubtype = "No info";
             }
             }
             catch
@@ -92,7 +95,15 @@ namespace Group1FinalProject.Controllers
                 ViewBag.Message = "Not a house!";
             }
 
-            return View("../Home/APIView");
+
+            TempData["oneLine"] = oneLine;
+            TempData["absenteeind"] = absenteeind;
+            TempData["propclass"] = propclass;
+            TempData["propsubtype"] = propsubtype;
+
+
+            // return View("../Home/ReportView");
+            return RedirectToAction("ReportView", "Home");
         }
     }
 }

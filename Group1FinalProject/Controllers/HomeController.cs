@@ -14,7 +14,13 @@ namespace Group1FinalProject.Controllers
             return View();
         }
 
-        public ActionResult OwnerView()
+        public ActionResult APIView()
+        { 
+
+            return View();
+        }
+
+        public ActionResult DBView()
         {
             return RedirectToAction("../DB/PullData");
         }
@@ -31,6 +37,13 @@ namespace Group1FinalProject.Controllers
             SquatDBEntities db = new SquatDBEntities();
 
             List<GeoLocation> PinList = db.GeoLocations.ToList();
+
+       
+            ViewBag.oneLine = TempData["oneLine"];
+            ViewBag.absenteeind = TempData["absenteeind"];
+            ViewBag.propclass = TempData["propclass"];
+            ViewBag.propsubtype = TempData["propsubtype"];
+
 
             ViewBag.Locations = PinList;
 
