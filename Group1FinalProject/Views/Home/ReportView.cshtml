@@ -1,0 +1,208 @@
+﻿@{
+    ViewBag.Title = "ReportView";
+}
+
+<h2>MapsView</h2>
+
+<html>
+<head>
+  
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        #floating-panel {
+            position: absolute;
+            top: 10px;
+            left: 25%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <title>Geocoding service</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <form name="input" form action="/API/GetONBData" method="post">
+        Street:<br>
+        <input type="text" name="Address1" id="Address1"><br>
+        City State:<br>
+        <input type="text" name="Address2" id="Address2">
+        <br />
+        <br />
+        <input type="submit" value="Submit">
+    </form>
+    <br />
+    <br />
+    <br />
+    <br />
+    @if (ViewBag.Message != null)
+    {
+        @ViewBag.Message
+    }
+    @ViewBag.oneLine
+    <br />
+    <br />
+    @ViewBag.absenteeind
+    <br />
+    <br />
+    @ViewBag.propclass
+    <br />
+    <br />
+    @ViewBag.propsubtype
+    <br />
+    <br />
+
+    <div id="floating-panel">
+        <input id="address" type="textbox" value="Detroit, MI">
+        <input id="submit" type="button" value="Place Marker">
+    </div>
+    <div id="map" style="width:500px;height:500px;"></div>
+   
+    <script type="text/javascript">
+
+        var modelarray = new Array();
+        modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+        
+        for (var i = 0; i < modelarray.length; i++)
+        {
+            document.write(modelarray[i].GeoLoc)
+        }
+
+
+        function initMap()
+        {
+            var modelarray = new Array();
+            modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+         
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 8,
+                center: { lat: 42.331429, lng: -83.045753 }
+            });
+            
+            var PreLoadgeocoder = new google.maps.Geocoder();
+            var geocoder = new google.maps.Geocoder();
+
+            for (var i = 0; i < modelarray.length; i++)
+            {   
+                var location = modelarray[i].GeoLoc;
+                PreGeocodeAddress(location, PreLoadgeocoder, map);
+            }
+
+            document.getElementById('submit').addEventListener('click', function () {
+                geocodeAddress(geocoder, map);
+            });
+        }
+
+        function geocodeAddress(geocoder, resultsMap)
+        {
+            var address = document.getElementById('address').value;
+            geocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK')
+                {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    })
+                PassData(address);
+                } else
+                {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function PreGeocodeAddress(location, PreLoadgeocoder, resultsMap)
+        {
+            var address = location;
+ 
+            PreLoadgeocoder.geocode({ 'address': address }, function (results, status) {
+                if (status === 'OK')
+                {
+                    resultsMap.setCenter(results[0].geometry.location);
+                    var marker = new google.maps.Marker({
+                        map: resultsMap,
+                        position: results[0].geometry.location
+                    })
+                } else
+                {
+                    alert('Geocode was not successful for the following reason: ' + status);
+                }
+            });
+        }
+
+        function PassData(address) {
+            //create javascript object
+            var model = new Object();
+            model.GeoLoc = address;
+
+            jQuery.ajax({
+                type: "POST",
+                url: "@Url.Action("../MAP/SendData")",
+                dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({ coordinates: model }),
+            success: function (data) {
+                alert(data);
+            },
+            failure: function (errMsg) {
+                alert(errMsg);
+            }
+        });
+        }
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
+    </script>
+
+    <br />
+    <br />
+ 
+</body>
+
+
+</html>
+
+
