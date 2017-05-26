@@ -3,13 +3,13 @@
 }
 
 
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
 <head>
 
 </head>
 <body>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 
     <br />
     <h3>Report A Squatter</h3>
@@ -33,14 +33,16 @@
         <input type="text" name="Address2" id="Address2">
         <br />
         <br />
-        <input type="submit" value="Submit">
+        <input type="submit" value="Search">
     </form>
-
+    <br />
     @if (ViewBag.Message != null)
-    {
-        @ViewBag.Message
+    { 
+        <b>    @ViewBag.Message</b>
     }
-    @ViewBag.oneLine
+    <u>SEARCH RESULTS:</u>
+    <br />
+    <b>  @ViewBag.oneLine</b>
 
     @ViewBag.absenteeind
 
@@ -49,120 +51,122 @@
     @ViewBag.propsubtype
     <br />
     <br />
-    <h4>Map of Reported Squatters</h4>
 
+    <center>
         <input id="submit" type="button" value="Place Marker">
         <input id="address" type="hidden" value="@ViewBag.oneLine">
+        <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
+        <h4>Map of Reported Squatters</h4> 
         <div id="map" style="width:500px;height:500px;"></div><div>
             <br />
             <br />
             <br />
-    </div>
-    <br />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
+        </div>
+        <br />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
 
 
+        </center>
+            <script type="text/javascript">
 
-    <script type="text/javascript">
+                var modelarray = new Array();
+                modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
 
-        var modelarray = new Array();
-        modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
-
-        for (var i = 0; i < modelarray.length; i++)
-        {
-            document.write(modelarray[i].GeoLoc)
-        }
-
-
-        function initMap()
-        {
-            var modelarray = new Array();
-            modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
-
-            var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 4,
-                center: { lat: 42.331429, lng: -83.045753 }
-            });
-
-            var PreLoadgeocoder = new google.maps.Geocoder();
-            var geocoder = new google.maps.Geocoder();
-
-            for (var i = 0; i < modelarray.length; i++)
-            {
-                var location = modelarray[i].GeoLoc;
-                PreGeocodeAddress(location, PreLoadgeocoder, map);
-            }
-
-            document.getElementById('submit').addEventListener('click', function () {
-                geocodeAddress(geocoder, map);
-            });
-        }
-
-        function geocodeAddress(geocoder, resultsMap)
-        {
-            var address = document.getElementById('address').value;
-            geocoder.geocode({ 'address': address }, function (results, status) {
-                if (status === 'OK')
+                for (var i = 0; i < modelarray.length; i++)
                 {
-                    resultsMap.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location
-                    })
-                PassData(address);
-                } else
-                {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    document.write(modelarray[i].GeoLoc)
                 }
-            });
-        }
 
-        function PreGeocodeAddress(location, PreLoadgeocoder, resultsMap)
-        {
-            var address = location;
 
-            PreLoadgeocoder.geocode({ 'address': address }, function (results, status) {
-                if (status === 'OK')
+                function initMap()
                 {
-                    resultsMap.setCenter(results[0].geometry.location);
-                    var marker = new google.maps.Marker({
-                        map: resultsMap,
-                        position: results[0].geometry.location
-                    })
-                } else
-                {
-                    alert('Geocode was not successful for the following reason: ' + status);
+                    var modelarray = new Array();
+                    modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 4,
+                        center: { lat: 42.331429, lng: -83.045753 }
+                    });
+
+                    var PreLoadgeocoder = new google.maps.Geocoder();
+                    var geocoder = new google.maps.Geocoder();
+
+                    for (var i = 0; i < modelarray.length; i++)
+                    {
+                        var location = modelarray[i].GeoLoc;
+                        PreGeocodeAddress(location, PreLoadgeocoder, map);
+                    }
+
+                    document.getElementById('submit').addEventListener('click', function () {
+                        geocodeAddress(geocoder, map);
+                    });
                 }
-            });
-        }
 
-        function PassData(address) {
-            //create javascript object
-            var model = new Object();
-            model.GeoLoc = address;
+                function geocodeAddress(geocoder, resultsMap)
+                {
+                    var address = document.getElementById('address').value;
+                    geocoder.geocode({ 'address': address }, function (results, status) {
+                        if (status === 'OK')
+                        {
+                            resultsMap.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: resultsMap,
+                                position: results[0].geometry.location
+                            })
+                            PassData(address);
+                        } else
+                        {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
+                    });
+                }
 
-            jQuery.ajax({
-                type: "POST",
-                url: "@Url.Action("../MAP/SendData")",
-                dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({ coordinates: model }),
-            success: function (data) {
-                alert(data);
-            },
-            failure: function (errMsg) {
-                alert(errMsg);
-            }
-        });
-        }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
-    </script>
+                function PreGeocodeAddress(location, PreLoadgeocoder, resultsMap)
+                {
+                    var address = location;
 
-    <br />
-    <br />
+                    PreLoadgeocoder.geocode({ 'address': address }, function (results, status) {
+                        if (status === 'OK')
+                        {
+                            resultsMap.setCenter(results[0].geometry.location);
+                            var marker = new google.maps.Marker({
+                                map: resultsMap,
+                                position: results[0].geometry.location
+                            })
+                        } else
+                        {
+                            alert('Geocode was not successful for the following reason: ' + status);
+                        }
+                    });
+                }
+
+                function PassData(address) {
+                    //create javascript object
+                    var model = new Object();
+                    model.GeoLoc = address;
+
+                    jQuery.ajax({
+                        type: "POST",
+                        url: "@Url.Action("../MAP/SendData")",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        data: JSON.stringify({ coordinates: model }),
+                        success: function (data) {
+                            alert(data);
+                        },
+                        failure: function (errMsg) {
+                            alert(errMsg);
+                        }
+                    });
+                }
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
+            </script>
+
+            <br />
+            <br />
 
 </body>
 
