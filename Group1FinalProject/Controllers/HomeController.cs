@@ -78,5 +78,63 @@ namespace Group1FinalProject.Controllers
 
             return Records;
         }
+
+        public ActionResult UnFlag(string UpdateName)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            datatable FindItem = db.datatables.Find(UpdateName);
+
+            return View("OwnerView", FindItem);
+        }
+
+        public ActionResult SaveItemUpdate(string UpdateName)
+        {
+                SquatDBEntities db = new SquatDBEntities();
+
+                datatable FindItem = db.datatables.Find(UpdateName);
+                string val = "";
+
+                if (FindItem.Ifsquat.Trim() == "y")
+                {
+                   val = "n";
+                }
+
+                if (FindItem.Ifsquat.Trim() == "n")
+                {
+                    val = "y";
+                }
+
+                FindItem.Ifsquat = val;
+
+                db.SaveChanges();
+
+                return RedirectToAction("OwnerView", "Home");
+        }
+
+        public ActionResult SearchAddress(string AddressID)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<datatable> AddressList = db.datatables.Where(x => x.dataaddress.ToUpper().Contains(AddressID.ToUpper())).ToList();
+
+            ViewBag.Names = PullData();
+            ViewBag.Message = AddressList;
+
+            return View("OwnerView");
+        }
+
+        //public ActionResult ListAllAddress()
+        //{
+        //    SquatDBEntities db = new SquatDBEntities();
+
+        //    //select * from customers
+        //    List<datatable> CustomerList = db.datatables.ToList();
+
+        //    ViewBag.Names = PullData();
+        //    ViewBag.Message = GetAllRecords();
+
+        //    return View();
+        //}
     }
 }
