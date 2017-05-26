@@ -4,6 +4,10 @@
     ViewBag.Title = "OwnerView";
 }
 
+<form action="SearchAddress">
+    Search by value:<input type="text" name="AddressID" />
+    <input type="submit" value="search" />
+</form>
 
 <form action="/Home/SearchData">
     Search by status:
@@ -23,7 +27,7 @@
                 <td>@item.dataaddress</td>
                 <td>@item.username</td>
                 <td>@item.Ifsquat</td>
-                <td><a href="/DB/DeleteData?DeleteName=@item.dataaddress" onclick="return confirm('Are you sure?')">Unflag</a></td>
+                <td><a href="SaveItemUpdate?UpdateName=@item.dataaddress">Update</a></td>
             </tr>
         }
     </table>
