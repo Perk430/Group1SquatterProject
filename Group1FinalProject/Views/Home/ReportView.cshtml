@@ -19,12 +19,14 @@
         If you believe a property is being occupied by a squatter, please enter the address<br />
         below of the property. This will then flag the address in our database. Property owners <br />
         will have the ability to check if their property has a squatter, allowing them take <br />
-        neccessary action.
+        neccessary action. Once you report the address, please fill the form below to provide us <br />
+        additional information.
     </p>
     <br />
-    <p>
-        If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
-        our squatter database.
+    <p><i>
+    If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
+    our squatter database.
+</i>
     </p>
     <form name="input" form action="/API/GetONBData" method="post">
         Street: <i>(i.e. 1245 Example St )</i><br />
@@ -35,12 +37,12 @@
         <br />
         <input type="submit" value="Search">
     </form>
-    <br />
+  
     @if (ViewBag.Message != null)
     { 
         <b>    @ViewBag.Message</b>
     }
-    <u>SEARCH RESULTS:</u>
+
     <br />
     <b>  @ViewBag.oneLine</b>
 
@@ -69,14 +71,6 @@
 
         </center>
             <script type="text/javascript">
-
-                var modelarray = new Array();
-                modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
-
-                for (var i = 0; i < modelarray.length; i++)
-                {
-                    document.write(modelarray[i].GeoLoc)
-                }
 
 
                 function initMap()
