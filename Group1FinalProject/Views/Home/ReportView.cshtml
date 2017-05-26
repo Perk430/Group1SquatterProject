@@ -37,23 +37,20 @@
         <br />
         <input type="submit" value="Search">
     </form>
-  
-    @if (ViewBag.Message != null)
-    { 
-        <b>    @ViewBag.Message</b>
+
+    <br />
+    @if (ViewBag.house != null)
+    {
+        @ViewBag.house
     }
-
+    @ViewBag.oneLine
     <br />
-    <b>  @ViewBag.oneLine</b>
-
     @ViewBag.absenteeind
-
+    <br />
     @ViewBag.propclass
-
+    <br />
     @ViewBag.propsubtype
-    <br />
-    <br />
-
+    
     <center>
         <input id="submit" type="button" value="Place Marker">
         <input id="address" type="hidden" value="@ViewBag.oneLine">

@@ -41,6 +41,7 @@ namespace Group1FinalProject.Controllers
             ViewBag.absenteeind = TempData["absenteeind"];
             ViewBag.propclass = TempData["propclass"];
             ViewBag.propsubtype = TempData["propsubtype"];
+            ViewBag.house = TempData["house"];
 
             ViewBag.Locations = PinList;
 

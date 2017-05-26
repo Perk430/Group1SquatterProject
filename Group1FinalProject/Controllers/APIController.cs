@@ -39,6 +39,7 @@ namespace Group1FinalProject.Controllers
             string absenteeind = "";
             string propclass = "";
             string propsubtype = "";
+            string house = "";
             //request.UserAgent = @"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
             try
             {
@@ -92,13 +93,14 @@ namespace Group1FinalProject.Controllers
             }
             catch
             {
-                ViewBag.Message = "Not a house!";
+                house = "Not a house!";
             }
 
             TempData["oneLine"] = oneLine;
             TempData["absenteeind"] = absenteeind;
             TempData["propclass"] = propclass;
             TempData["propsubtype"] = propsubtype;
+            TempData["house"] = house;
 
             // return View("../Home/ReportView");
             return RedirectToAction("ReportView", "Home");

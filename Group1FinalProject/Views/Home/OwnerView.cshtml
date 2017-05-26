@@ -27,7 +27,7 @@
     N: No - this address is no longer "flagged" with a potential squatter<br />
 </p>
 <br />
-<form action="/Home/SearchData">
+<center><form action="/Home/SearchData">
     Search by status:
     <select name="SearchFlag">
         @foreach (var element in ViewBag.Names)
@@ -36,9 +36,10 @@
         }
     </select>
     <input type="submit" value="Submit">
+
     </form>
     <table border="1">
-        <tr><th>Address</th><th>User Submitted</th><th>Status</th></tr>
+        <tr><th>Address</th><th>User Submitted</th><th>Status</th><th>Edit</th></tr>
         @foreach (var item in ViewBag.Message)
         {
             <tr>
@@ -49,3 +50,4 @@
             </tr>
         }
     </table>
+</center>

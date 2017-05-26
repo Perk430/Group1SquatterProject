@@ -1,90 +1,21 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
-
-<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            @*<div class="navbar-collapse collapse">
-                @*<ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li><a href="/Home/ReportView">Report</a></li>
-                    <li><a href="/Home/OwnerView">Homeowners</a></li>
-                    <li><a href="/Home/FAQView">FAQ</a></li>
-                </ul>*@
-                @*@Html.Partial("_LoginPartial")
-            </div>*@*@
-        </div>
-    </div>
+    <br />
+    <p style="font-size:36px;">Welcome to Squatter Spotter!</p>
+    <br />
+    <p>
+        This site is dedicated to reporting squatters.  A squatter is a type of trespasser residing in<br />
+        a property not belonging to them. Help your community by reporting known squatters here!  <br />
+        Please click on the "Register" tab to register on our website and click on the "Report" tab  <br />
+        to report a squatter. <br />
 
-    <html>
-    <head>
-        <meta charset="UTF-8">
-        <title>revised login form</title>
-        <link rel="stylesheet" href="~/Content/css/style.css">
-    </head>
-    <body>
-        <html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>Iron Man Login Form - CodePen</title>
-            <script src="~/Content/js/prefixfree.min.js"></script>
-        </head>
-        <body>
-            <div id="logo">
-                <h1><i> WELCOME TO THE SQUATTER SPOTTER</i></h1>
-            </div>
-            <section class="stark-login">
-                <form action="" method="post">
-                    <div id="fade-box">
-                        <input type="text" name="username" id="username" placeholder="Username" required>
-                        <input type="password" placeholder="Password" required>
-                        <button>Log In</button>
-                    </div>
-                </form>
-                <div class="hexagons">
-
-                    <img src="~/Content/http://i34.photobucket.com/albums/d133/RavenLionheart/NX-Desktop-BG.png" height="768px" width="1366px" />
-                </div>
-            </section>
-            <div id="circle1">
-                <div id="inner-cirlce1">
-                    <h2> </h2>
-                </div>
-            </div>
-            <ul>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-                <li></li>
-            </ul>
-            <script src='~/Content/https://codepen.io/assets/libs/fullpage/jquery.js'></script>
-            <script src="~/Content/js/index.js"></script>
-        </body>
-    </html>
-    <script src="~/Content/js/index.js"></script>
+    </p>
+    <br />
 </body>
 </html>
-
-
-
 
