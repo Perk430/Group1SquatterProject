@@ -7,19 +7,15 @@ using Group1FinalProject.Models;
 
 namespace Group1FinalProject.Controllers
 {
+    
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
             return View();
         }
-
-        public ActionResult APIView()
-        {
-
-            return View();
-        }
-
+       
+        [Authorize]
         public ActionResult OwnerView()
         {
             ViewBag.Names = PullData();
@@ -34,7 +30,7 @@ namespace Group1FinalProject.Controllers
 
             return View();
         }
-
+        [Authorize]
         public ActionResult ReportView()
         {
             SquatDBEntities db = new SquatDBEntities();
@@ -78,7 +74,7 @@ namespace Group1FinalProject.Controllers
 
             return Records;
         }
-        [Authorize]
+        
         public ActionResult UnFlag(string UpdateName)
         {
             SquatDBEntities db = new SquatDBEntities();
@@ -87,7 +83,7 @@ namespace Group1FinalProject.Controllers
 
             return View("OwnerView", FindItem);
         }
-        [Authorize]
+        
         public ActionResult SaveItemUpdate(string UpdateName)
         {
                 SquatDBEntities db = new SquatDBEntities();
@@ -124,17 +120,5 @@ namespace Group1FinalProject.Controllers
             return View("OwnerView");
         }
 
-        //public ActionResult ListAllAddress()
-        //{
-        //    SquatDBEntities db = new SquatDBEntities();
-
-        //    //select * from customers
-        //    List<datatable> CustomerList = db.datatables.ToList();
-
-        //    ViewBag.Names = PullData();
-        //    ViewBag.Message = GetAllRecords();
-
-        //    return View();
-        //}
     }
 }
