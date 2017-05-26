@@ -15,7 +15,7 @@ namespace Group1FinalProject.Controllers
             return View();
         }
        
-        [Authorize]
+        //[Authorize]
         public ActionResult OwnerView()
         {
             ViewBag.Names = PullData();
@@ -30,7 +30,7 @@ namespace Group1FinalProject.Controllers
 
             return View();
         }
-        [Authorize]
+        //[Authorize]
         public ActionResult ReportView()
         {
             SquatDBEntities db = new SquatDBEntities();
@@ -44,6 +44,8 @@ namespace Group1FinalProject.Controllers
             ViewBag.house = TempData["house"];
 
             ViewBag.Locations = PinList;
+
+            ViewBag.Reported = TempData["reported"];
 
             return View();
         }

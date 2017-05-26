@@ -17,6 +17,8 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult SendData(datatable coordinates)
         {
+            string reported = "";
+
             Random rdn = new Random();
             int randomNumber = rdn.Next(0, 5000);
 
@@ -28,10 +30,18 @@ namespace Group1FinalProject.Controllers
             SquatDBEntities db = new SquatDBEntities();
 
             db.datatables.Add(coordinates);
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                reported = "Already Reported!";
+            }
 
-            db.SaveChanges();
+            TempData["reported"] = reported;
 
-            return View("../Home/MapsView");
+            return View("../Home/ReportView");
         }
 
         public ActionResult PullData()
