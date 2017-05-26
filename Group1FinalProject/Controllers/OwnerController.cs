@@ -7,7 +7,7 @@ using Group1FinalProject.Models;
 
 namespace Group1FinalProject.Controllers
 {
-    public class DBController : Controller
+    public class OwnerController : Controller
     {
         SquatDBEntities db = new SquatDBEntities();
         // GET: DB
@@ -18,18 +18,19 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult PullData()
         {
+            
             SquatDBEntities db = new SquatDBEntities();
 
-            List<Address> AdList = db.Addresses.ToList();
+            List<datatable> AdList = db.datatables.ToList();
 
-            ViewBag.Message = AdList;
+            TempData["AdList"] = AdList;
 
             return View("../Home/OwnerView");
         }
 
-        public ActionResult SendData(Address Input)
+        public ActionResult SendData(datatable Input)
         {
-            db.Addresses.Add(Input);
+            db.datatables.Add(Input);
 
             db.SaveChanges();
 
@@ -38,13 +39,25 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult DeleteData(string DeleteName)
         {
-            Address ToDelete = db.Addresses.Find(DeleteName);
+            datatable ToDelete = db.datatables.Find(DeleteName);
 
-            db.Addresses.Remove(ToDelete);
+            db.datatables.Remove(ToDelete);
 
             db.SaveChanges();
 
             return RedirectToAction("PullData");
         }
+
+        public ActionResult SearchData(string SearchFlag)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<datatable> AdList = db.datatables.Where(x => x.Ifsquat.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
+
+            ViewBag.Names = AdList;
+
+            return RedirectToAction("PullData");
+        }
+
     }
 }

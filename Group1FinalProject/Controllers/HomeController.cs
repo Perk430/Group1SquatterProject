@@ -15,14 +15,17 @@ namespace Group1FinalProject.Controllers
         }
 
         public ActionResult APIView()
-        { 
+        {
 
             return View();
         }
 
-        public ActionResult DBView()
+        public ActionResult OwnerView()
         {
-            return RedirectToAction("../DB/PullData");
+            ViewBag.Names = PullData();
+            ViewBag.Message = GetAllRecords();
+
+            return View();
         }
 
         public ActionResult FAQView()
@@ -46,6 +49,34 @@ namespace Group1FinalProject.Controllers
             ViewBag.Locations = PinList;
 
             return View();
+        }
+
+        public ActionResult SearchData(string SearchFlag)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<datatable> AdList = db.datatables.Where(x => x.Ifsquat.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
+
+            ViewBag.Names = PullData();
+            ViewBag.Message = AdList;
+
+            return View("OwnerView");
+        }
+
+        public List<string> PullData()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            return db.datatables.Select(x => x.Ifsquat).Distinct().ToList();
+        }
+
+        public List<datatable> GetAllRecords()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<datatable> Records = db.datatables.ToList();
+
+            return Records;
         }
     }
 }

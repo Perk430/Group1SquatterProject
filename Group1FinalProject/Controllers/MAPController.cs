@@ -15,11 +15,19 @@ namespace Group1FinalProject.Controllers
             return View();
         }
 
-        public ActionResult SendData(GeoLocation coordinates)
+        public ActionResult SendData(datatable coordinates)
         {
+            Random rdn = new Random();
+            int randomNumber = rdn.Next(0, 5000);
+
+            string name = Convert.ToString(randomNumber);
+                       
+            coordinates.Ifsquat = "y";
+            coordinates.username = "Test" + name;
+
             SquatDBEntities db = new SquatDBEntities();
 
-            db.GeoLocations.Add(coordinates);
+            db.datatables.Add(coordinates);
 
             db.SaveChanges();
 
@@ -30,7 +38,7 @@ namespace Group1FinalProject.Controllers
         {
             SquatDBEntities db = new SquatDBEntities();
 
-            List<GeoLocation> PinList = db.GeoLocations.ToList();
+            List<datatable> PinList = db.datatables.ToList();
 
             ViewBag.Locations = PinList;
 
