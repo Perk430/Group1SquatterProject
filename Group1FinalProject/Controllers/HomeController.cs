@@ -78,7 +78,7 @@ namespace Group1FinalProject.Controllers
 
             return Records;
         }
-
+        [Authorize]
         public ActionResult UnFlag(string UpdateName)
         {
             SquatDBEntities db = new SquatDBEntities();
@@ -87,7 +87,7 @@ namespace Group1FinalProject.Controllers
 
             return View("OwnerView", FindItem);
         }
-
+        [Authorize]
         public ActionResult SaveItemUpdate(string UpdateName)
         {
                 SquatDBEntities db = new SquatDBEntities();

@@ -36,7 +36,7 @@ namespace Group1FinalProject.Controllers
 
             return RedirectToAction ("PullData");
         }
-
+        [Authorize]
         public ActionResult DeleteData(string DeleteName)
         {
             datatable ToDelete = db.datatables.Find(DeleteName);
@@ -47,7 +47,7 @@ namespace Group1FinalProject.Controllers
 
             return RedirectToAction("PullData");
         }
-
+        [Authorize]
         public ActionResult SearchData(string SearchFlag)
         {
             SquatDBEntities db = new SquatDBEntities();
