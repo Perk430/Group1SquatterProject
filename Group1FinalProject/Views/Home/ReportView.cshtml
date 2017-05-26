@@ -2,89 +2,68 @@
     ViewBag.Title = "ReportView";
 }
 
-<h2>MapsView</h2>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+
 <html>
 <head>
-    <style>
-        /* Always set the map height explicitly to define the size of the div
-        * element that contains the map. */
-        #map {
-            height: 100%;
-        }
-        /* Optional: Makes the sample page fill the window. */
-        html, body {
-            height: 100%;
-            margin: 0;
-            padding: 0;
-        }
 
-        #floating-panel {
-            position: absolute;
-            top: 10px;
-            left: 25%;
-            z-index: 5;
-            background-color: #fff;
-            padding: 5px;
-            border: 1px solid #999;
-            text-align: center;
-            font-family: 'Roboto','sans-serif';
-            line-height: 30px;
-            padding-left: 10px;
-        }
-    </style>
 </head>
 <body>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
     <br />
+    <h3>Report A Squatter</h3>
     <br />
+
+    <p>
+        If you believe a property is being occupied by a squatter, please enter the address<br />
+        below of the property. This will then flag the address in our database. Property owners <br />
+        will have the ability to check if their property has a squatter, allowing them take <br />
+        neccessary action.
+    </p>
     <br />
-    <div>
-        <center>
-            <div id="map" style="width:500px;height:500px;"></div>
-            <br />
-            <br />
-            <br />
-            <input id="address" type="hidden" value="@ViewBag.oneLine">
-            <input id="submit" type="button" value="Place Marker">
-        </center>
-    </div>
-    <br />
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <br />
-    <br />
-    <br />
-    <center>
+    <p>
+        If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
+        our squatter database.
+    </p>
     <form name="input" form action="/API/GetONBData" method="post">
-        Street:<br>
+        Street: <i>(i.e. 1245 Example St )</i><br />
         <input type="text" name="Address1" id="Address1"><br>
-        City State:<br>
+        City, State:<br>
         <input type="text" name="Address2" id="Address2">
         <br />
         <br />
         <input type="submit" value="Submit">
     </form>
-    <br />
-</center>
+
     @if (ViewBag.Message != null)
     {
         @ViewBag.Message
     }
     @ViewBag.oneLine
-    <br />
-    <br />
+
     @ViewBag.absenteeind
-    <br />
-    <br />
+
     @ViewBag.propclass
-    <br />
-    <br />
+
     @ViewBag.propsubtype
     <br />
     <br />
+    <h4>Map of Reported Squatters</h4>
 
-  
-   
+        <input id="submit" type="button" value="Place Marker">
+        <input id="address" type="hidden" value="@ViewBag.oneLine">
+        <div id="map" style="width:500px;height:500px;"></div><div>
+            <br />
+            <br />
+            <br />
+    </div>
+    <br />
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+
+
+
     <script type="text/javascript">
 
         var modelarray = new Array();
@@ -94,8 +73,7 @@
         {
             document.write(modelarray[i].GeoLoc)
         }
-       
-        document.write('address')
+
 
         function initMap()
         {
@@ -103,7 +81,7 @@
             modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
 
             var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 8,
+                zoom: 4,
                 center: { lat: 42.331429, lng: -83.045753 }
             });
 
@@ -162,7 +140,7 @@
         function PassData(address) {
             //create javascript object
             var model = new Object();
-            model.dataaddress = address;
+            model.GeoLoc = address;
 
             jQuery.ajax({
                 type: "POST",
@@ -185,7 +163,7 @@
 
     <br />
     <br />
- 
+
 </body>
 
 
