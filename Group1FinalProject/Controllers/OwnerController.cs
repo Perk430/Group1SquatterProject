@@ -9,54 +9,114 @@ namespace Group1FinalProject.Controllers
 {
     public class OwnerController : Controller
     {
-        SquatDBEntities db = new SquatDBEntities();
         // GET: DB
-        public ActionResult DB()
+        public ActionResult OwnerView()
+        {
+            ViewBag.SearchItems = PullData();
+            ViewBag.Data = GetAllRecords();
+
+            return View();
+        }
+
+        public ActionResult DetailsView()
         {
             return View();
         }
 
-        public ActionResult PullData()
+        public List<string> PullData()
         {
-            
             SquatDBEntities db = new SquatDBEntities();
 
-            List<datatable> AdList = db.datatables.ToList();
-
-            TempData["AdList"] = AdList;
-
-            return View("../Home/OwnerView");
+            return db.finaltables.Select(x => x.flagged).Distinct().ToList();
         }
 
-        public ActionResult SendData(datatable Input)
+        public List<finaltable> GetAllRecords()
         {
-            db.datatables.Add(Input);
+            SquatDBEntities db = new SquatDBEntities();
 
-            db.SaveChanges();
+            List<finaltable> Records = db.finaltables.ToList();
 
-            return RedirectToAction ("PullData");
+            return Records;
         }
-        [Authorize]
-        public ActionResult DeleteData(string DeleteName)
-        {
-            datatable ToDelete = db.datatables.Find(DeleteName);
 
-            db.datatables.Remove(ToDelete);
-
-            db.SaveChanges();
-
-            return RedirectToAction("PullData");
-        }
-        [Authorize]
         public ActionResult SearchData(string SearchFlag)
         {
             SquatDBEntities db = new SquatDBEntities();
 
-            List<datatable> AdList = db.datatables.Where(x => x.Ifsquat.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
+            List<finaltable> AdList = db.finaltables.Where(x => x.flagged.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
 
-            ViewBag.Names = AdList;
+            ViewBag.Names = PullData();
+            ViewBag.Message = AdList;
 
-            return RedirectToAction("PullData");
+            return View("OwnerView");
+        }
+
+        public ActionResult UnFlag(string UpdateName)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            finaltable FindItem = db.finaltables.Find(UpdateName);
+
+            return View("OwnerView", FindItem);
+        }
+
+        public ActionResult SaveFlag(string flagname)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            finaltable FindItem = db.finaltables.Find(flagname);
+            string val = "";
+
+            if (FindItem.flagged.Trim() == "y")
+            {
+                val = "n";
+            }
+
+            if (FindItem.flagged.Trim() == "n")
+            {
+                val = "y";
+            }
+
+            FindItem.flagged = val;
+
+            db.SaveChanges();
+
+            return RedirectToAction("OwnerView");
+        }
+
+        public ActionResult SearchAddress(string AddressID)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<finaltable> AddressList = db.finaltables.Where(x => x.address.ToUpper().Contains(AddressID.ToUpper())).ToList();
+
+            ViewBag.Names = PullData();
+            ViewBag.Message = AddressList;
+
+            return View("OwnerView");
+        }
+
+        public ActionResult SaveComments(finaltable ToBeUpdated)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            finaltable FindItem = db.finaltables.Find(ToBeUpdated.address);
+
+            FindItem.comments = ToBeUpdated.comments;
+
+            db.SaveChanges();
+
+            return RedirectToAction("OwnerView");
+
+        }
+
+        public ActionResult UpdateComments(string ToBeUpdated)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            finaltable FindItem = db.finaltables.Find(ToBeUpdated);
+
+            return View("DetailsView", FindItem);
         }
 
     }

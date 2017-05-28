@@ -15,7 +15,7 @@ namespace Group1FinalProject.Controllers
             return View();
         }
 
-        public ActionResult SendData(datatable coordinates)
+        public ActionResult SendData(finaltable coordinates)
         {
             string reported = "";
 
@@ -23,17 +23,25 @@ namespace Group1FinalProject.Controllers
             int randomNumber = rdn.Next(0, 5000);
 
             string name = Convert.ToString(randomNumber);
-                       
-            coordinates.Ifsquat = "y";
+
+            coordinates.flagged = "y";
             coordinates.username = "Test" + name;
+            coordinates.comments = "Tests comments";
+            coordinates.timeofday = "9:00 to 5:00 PM";
+            coordinates.narc = "x";
+            coordinates.startsquat = DateTime.Parse("04/19/2016");
+            coordinates.police = "o";
+            coordinates.datereported = DateTime.Now;
+            coordinates.reportedtimes = 1;
 
             SquatDBEntities db = new SquatDBEntities();
+            db.finaltables.Add(coordinates);
 
-            db.datatables.Add(coordinates);
             try
             {
+                
                 db.SaveChanges();
-            }
+        }
             catch
             {
                 reported = "Already Reported!";
@@ -48,7 +56,7 @@ namespace Group1FinalProject.Controllers
         {
             SquatDBEntities db = new SquatDBEntities();
 
-            List<datatable> PinList = db.datatables.ToList();
+            List<finaltable> PinList = db.finaltables.ToList();
 
             ViewBag.Locations = PinList;
 

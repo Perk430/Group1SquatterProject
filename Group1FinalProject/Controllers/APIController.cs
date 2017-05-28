@@ -53,43 +53,43 @@ namespace Group1FinalProject.Controllers
 
                 XMLdataTest.LoadXml(data);
 
-            try
-            {
-                absenteeind = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/absenteeInd").InnerText;
-            }
-            catch
-            {
-                absenteeind = "No Info";
-            }
+                try
+                {
+                    absenteeind = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/absenteeInd").InnerText;
+                }
+                catch
+                {
+                    absenteeind = "No Info";
+                }
 
 
-            try
-            {
-                oneLine = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/address/oneLine").InnerText;
-            }
-            catch
-            {
-                oneLine = "No info";
-            }
+                try
+                {
+                    oneLine = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/address/oneLine").InnerText;
+                }
+                catch
+                {
+                    oneLine = "No info";
+                }
 
 
-            try
-            {
-                propclass = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propclass").InnerText;
-            }
-            catch
-            {
-                propclass = "No Info";
-            }
+                try
+                {
+                    propclass = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propclass").InnerText;
+                }
+                catch
+                {
+                    propclass = "No Info";
+                }
 
-            try
-            {
-                propsubtype = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propsubtype").InnerText;
-            }
-            catch
-            {
-                propsubtype = "No info";
-            }
+                try
+                {
+                    propsubtype = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/propsubtype").InnerText;
+                }
+                catch
+                {
+                    propsubtype = "No info";
+                }
             }
             catch
             {

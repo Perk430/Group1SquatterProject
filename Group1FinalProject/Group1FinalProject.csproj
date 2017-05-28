@@ -215,6 +215,9 @@
       <DependentUpon>SquatterDB.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntryData.cs" />
+    <Compile Include="Models\finaltable.cs">
+      <DependentUpon>SquatterDB.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\GeoLocation.cs">
       <DependentUpon>SquatterDB.tt</DependentUpon>
     </Compile>
@@ -295,7 +298,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\OwnerView.cshtml" />
+    <Content Include="Views\Owner\OwnerView.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -320,12 +323,12 @@
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\FAQView.cshtml" />
     <Content Include="Views\Home\ReportView.cshtml" />
+    <Content Include="Views\Owner\DetailsView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\DB\" />
-    <Folder Include="Views\MAP\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

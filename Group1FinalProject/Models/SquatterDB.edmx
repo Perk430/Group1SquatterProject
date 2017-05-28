@@ -20,6 +20,21 @@
           <Property Name="Ifsquat" Type="char" MaxLength="10" Nullable="false" />
           <Property Name="username" Type="nchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="finaltable">
+          <Key>
+            <PropertyRef Name="address" />
+          </Key>
+          <Property Name="address" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="flagged" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="comments" Type="varchar" MaxLength="250" Nullable="false" />
+          <Property Name="timeofday" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="narc" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="startsquat" Type="date" Nullable="false" />
+          <Property Name="police" Type="char" MaxLength="1" Nullable="false" />
+          <Property Name="datereported" Type="date" Nullable="false" />
+          <Property Name="reportedtimes" Type="tinyint" Nullable="false" />
+        </EntityType>
         <EntityType Name="GeoLocation">
           <Key>
             <PropertyRef Name="GeoLoc" />
@@ -29,6 +44,7 @@
         <EntityContainer Name="SquatDBModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="datatable" EntityType="Self.datatable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="finaltable" EntityType="Self.finaltable" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="GeoLocation" EntityType="Self.GeoLocation" Schema="dbo" store:Type="Tables" />
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -46,6 +62,7 @@
           <EntitySet Name="Addresses" EntityType="Self.Address" />
           <EntitySet Name="GeoLocations" EntityType="SquatDBModel.GeoLocation" />
           <EntitySet Name="datatables" EntityType="SquatDBModel.datatable" />
+          <EntitySet Name="finaltables" EntityType="SquatDBModel.finaltable" />
         </EntityContainer>
         <EntityType Name="GeoLocation">
           <Key>
@@ -60,6 +77,21 @@
           <Property Name="dataaddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Ifsquat" Type="String" Nullable="false" MaxLength="10" FixedLength="true" Unicode="false" />
           <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="finaltable">
+          <Key>
+            <PropertyRef Name="address" />
+          </Key>
+          <Property Name="address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="username" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="flagged" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="comments" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="false" />
+          <Property Name="timeofday" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="narc" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="startsquat" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="police" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="datereported" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="reportedtimes" Type="Byte" Nullable="false" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -88,6 +120,22 @@
                 <ScalarProperty Name="username" ColumnName="username" />
                 <ScalarProperty Name="Ifsquat" ColumnName="Ifsquat" />
                 <ScalarProperty Name="dataaddress" ColumnName="dataaddress" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="finaltables">
+            <EntityTypeMapping TypeName="SquatDBModel.finaltable">
+              <MappingFragment StoreEntitySet="finaltable">
+                <ScalarProperty Name="reportedtimes" ColumnName="reportedtimes" />
+                <ScalarProperty Name="datereported" ColumnName="datereported" />
+                <ScalarProperty Name="police" ColumnName="police" />
+                <ScalarProperty Name="startsquat" ColumnName="startsquat" />
+                <ScalarProperty Name="narc" ColumnName="narc" />
+                <ScalarProperty Name="timeofday" ColumnName="timeofday" />
+                <ScalarProperty Name="comments" ColumnName="comments" />
+                <ScalarProperty Name="flagged" ColumnName="flagged" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="address" ColumnName="address" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
