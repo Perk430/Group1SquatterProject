@@ -1,0 +1,61 @@
+﻿@model Group1FinalProject.Models.finaltable
+
+@{
+    ViewBag.Title = "OwnerView";
+}
+<br />
+<br />
+<br />
+<h3>Property Search for Homeowners</h3>
+<br />
+
+<p>
+    If you believe your property has fallen victim to squatters, use our search tool below<br />
+    to search for any reports made against your address. 
+</p>
+<br />
+<form action="SearchAddress">
+    Search by Street Address, City or State:<input type="text" name="AddressID" />
+    <input type="submit" value="Search" />
+</form>
+<br />
+
+<p>
+    You can also search by whether an address has been reported or not. Use the <br />
+    drop down arrow below to search by property's status.<br />
+    Y: Yes - this address has been "flagged" and has potential squatter<br />
+    N: No - this address is no longer "flagged" with a potential squatter<br />
+</p>
+<br />
+<center><form action="SearchData">
+    Search by status:
+    <select name="SearchFlag">
+        @foreach (var element in ViewBag.SearchItems)
+            {
+            <option value="@element">@element</option>
+        }
+    </select>
+    <input type="submit" value="Submit">
+
+    </form>
+    <table border="1">
+        <tr><th>Address</th><th>User Name</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th>Date Reported</th><th>When on Premise</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Comments</th></tr>
+        @foreach (var item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.address</td>
+                <td>@item.username</td>
+                <td>@item.timeofday</td>
+                <td>@item.narc</td>
+                <td>@item.startsquat</td>
+                <td>@item.police</td>
+                <td>@item.datereported</td>
+                <td>@item.reportedtimes</td>
+                <td>@item.comments</td>
+                <td>@item.flagged</td>
+                <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
+                <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
+            </tr>
+        }    
+    </table>
+</center>

@@ -1,0 +1,35 @@
+﻿@model Group1FinalProject.Models.finaltable
+@{
+    ViewBag.Title = "DetailsView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Address Details</title>
+</head>
+<body>
+    <center>
+        <font size="4" color="white" font face="verdana">Address Details</font>
+        <br />
+        <br />
+        <br />
+        <br />
+        <form name="input" action="SaveComments" method="post">
+
+            <label>@Model.address</label><input type="hidden" name="address" id="address"  value="@Model.address" /><br />
+            <br />
+            <label>Username: </label><input type="Text" name="Description" disabled="disabled" id="Description" value="@Model.username" /><br />
+            <br />
+            <label>Flagged: </label><input type="Text" name="Quantity" disabled="disabled" id="Quantity" value="@Model.flagged" /><br />
+            <br />
+            <label>Comments: </label><input type="Text" name="comments" id="comments" value="@Model.comments" /><br />
+            <br />
+            <br />
+            <input type="submit" value="Submit">
+        </form>
+    </center>
+</body>
+</html>
+
