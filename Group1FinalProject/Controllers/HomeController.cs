@@ -30,10 +30,11 @@ namespace Group1FinalProject.Controllers
         //[Authorize]
         public ActionResult ReportView()
         {
-            {
                 SquatDBEntities db = new SquatDBEntities();
 
                 List<finaltable> PinList = db.finaltables.ToList();
+
+                ViewBag.Locations = PinList;
 
                 ViewBag.oneLine = TempData["oneLine"];
                 ViewBag.absenteeind = TempData["absenteeind"];
@@ -41,12 +42,9 @@ namespace Group1FinalProject.Controllers
                 ViewBag.propsubtype = TempData["propsubtype"];
                 ViewBag.house = TempData["house"];
 
-                ViewBag.Locations = PinList;
-
                 ViewBag.Reported = TempData["reported"];
 
                 return View();
-            }
         }
 
         public ActionResult DetailsView()

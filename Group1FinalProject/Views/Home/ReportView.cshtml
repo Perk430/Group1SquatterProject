@@ -3,7 +3,7 @@
 }
 
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
 <head>
 
@@ -23,10 +23,11 @@
         additional information.
     </p>
     <br />
-    <p><i>
-    If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
-    our squatter database.
-</i>
+    <p>
+        <i>
+            If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
+            our squatter database.
+        </i>
     </p>
     <form name="input" form action="/API/GetONBData" method="post">
         Street: <i>(i.e. 1245 Example St )</i><br />
@@ -55,11 +56,11 @@
     @ViewBag.Reported
     <br />
     <center>
-            
+
         <input id="submit" type="button" value="Place Marker">
         <input id="address" type="hidden" value="@ViewBag.oneLine">
         <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
-        <h4>Map of Reported Squatters</h4> 
+        <h4>Map of Reported Squatters</h4>
         <div id="map" style="width:500px;height:500px;"></div><div>
             <br />
             <br />
@@ -70,8 +71,8 @@
         <meta charset="utf-8">
 
 
-        </center>
-            <script type="text/javascript">
+    </center>
+    <script type="text/javascript">
 
 
                 function initMap()
@@ -89,7 +90,7 @@
 
                     for (var i = 0; i < modelarray.length; i++)
                     {
-                        var location = modelarray[i].GeoLoc;
+                        var location = modelarray[i].address;
                         PreGeocodeAddress(location, PreLoadgeocoder, map);
                     }
 
@@ -155,17 +156,15 @@
                         }
                     });
                 }
-            </script>
-            <script async defer
-                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
-            </script>
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
+    </script>
 
-            <br />
-            <br />
+    <br />
+    <br />
 
 </body>
 
 
 </html>
-
-
