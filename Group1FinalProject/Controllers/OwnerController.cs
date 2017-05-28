@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Group1FinalProject.Models;
+using System.Security.Principal;
 
 namespace Group1FinalProject.Controllers
 {
@@ -20,6 +21,18 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult DetailsView()
         {
+            return View();
+        }
+
+        public ActionResult AccountReportsView()
+        {
+            return View();
+        }
+
+        public ActionResult MyReportsView()
+        {
+            ViewBag.Data = GetAllMyRecords();
+
             return View();
         }
 
@@ -57,12 +70,19 @@ namespace Group1FinalProject.Controllers
 
             finaltable FindItem = db.finaltables.Find(UpdateName);
 
+            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
+            if (FindItem.username == loginusername)
+            {
+                return View("MyReportsView", FindItem);
+            }
             return View("OwnerView", FindItem);
         }
 
         public ActionResult SaveFlag(string flagname)
         {
             SquatDBEntities db = new SquatDBEntities();
+
+            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
 
             finaltable FindItem = db.finaltables.Find(flagname);
             string val = "";
@@ -80,7 +100,11 @@ namespace Group1FinalProject.Controllers
             FindItem.flagged = val;
 
             db.SaveChanges();
-
+            if(FindItem.username == loginusername)
+            {
+                return RedirectToAction("MyReportsView");
+            }
+            else
             return RedirectToAction("OwnerView");
         }
 
@@ -98,6 +122,8 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult SaveComments(finaltable ToBeUpdated)
         {
+            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
+
             SquatDBEntities db = new SquatDBEntities();
 
             finaltable FindItem = db.finaltables.Find(ToBeUpdated.address);
@@ -106,17 +132,42 @@ namespace Group1FinalProject.Controllers
 
             db.SaveChanges();
 
+            if (FindItem.username == loginusername)
+            {
+                return RedirectToAction("MyReportsView");
+            }
+            else
+
             return RedirectToAction("OwnerView");
 
         }
 
         public ActionResult UpdateComments(string ToBeUpdated)
         {
+            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
+            
             SquatDBEntities db = new SquatDBEntities();
 
             finaltable FindItem = db.finaltables.Find(ToBeUpdated);
 
+            if(FindItem.username == loginusername)
+            {
+                return View("AccountReportsView", FindItem);
+            }
+            else
+          
             return View("DetailsView", FindItem);
+        }
+
+        public List<finaltable> GetAllMyRecords()
+        {
+            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
+
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<finaltable> Records = db.finaltables.Where(x => x.username == loginusername).ToList();
+
+            return Records;
         }
 
     }

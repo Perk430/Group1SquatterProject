@@ -4,6 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Group1FinalProject.Models;
+using System.Security.Principal;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 
 namespace Group1FinalProject.Controllers
 {
@@ -19,13 +22,13 @@ namespace Group1FinalProject.Controllers
         {
             string reported = "";
 
-            Random rdn = new Random();
-            int randomNumber = rdn.Next(0, 5000);
+            //Random rdn = new Random();
+            //int randomNumber = rdn.Next(0, 5000);
 
-            string name = Convert.ToString(randomNumber);
+            //string name = Convert.ToString(randomNumber);
 
             coordinates.flagged = "y";
-            coordinates.username = "Test" + name;
+            coordinates.username = Convert.ToString(WindowsIdentity.GetCurrent().User);
             coordinates.comments = "Tests comments";
             coordinates.timeofday = "9:00 to 5:00 PM";
             coordinates.narc = "x";

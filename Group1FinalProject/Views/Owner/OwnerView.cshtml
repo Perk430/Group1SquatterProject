@@ -31,7 +31,7 @@
     Search by status:
     <select name="SearchFlag">
         @foreach (var element in ViewBag.SearchItems)
-            {
+        {
             <option value="@element">@element</option>
         }
     </select>
@@ -39,12 +39,11 @@
 
     </form>
     <table border="1">
-        <tr><th>Address</th><th>User Name</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th>Date Reported</th><th>When on Premise</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Comments</th></tr>
+        <tr><th>Address</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th><th>Date Reported</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Edit Comments</th></tr>
         @foreach (var item in ViewBag.Data)
         {
             <tr>
                 <td>@item.address</td>
-                <td>@item.username</td>
                 <td>@item.timeofday</td>
                 <td>@item.narc</td>
                 <td>@item.startsquat</td>
