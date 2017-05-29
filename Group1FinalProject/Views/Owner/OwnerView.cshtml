@@ -39,7 +39,7 @@
 
     </form>
     <table border="1">
-        <tr><th>Address</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th><th>Date Reported</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Edit Comments</th></tr>
+        <tr><th>Address</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th><th>Date Reported</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Edit Comments</th><th>File a Report</th></tr>
         @foreach (var item in ViewBag.Data)
         {
             <tr>
@@ -54,6 +54,7 @@
                 <td>@item.flagged</td>
                 <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
                 <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
+                <td><a href="TickReport?ReportCount=@item.address" onclick="return confirm('File Report?')">Report</a></td>
             </tr>
         }    
     </table>

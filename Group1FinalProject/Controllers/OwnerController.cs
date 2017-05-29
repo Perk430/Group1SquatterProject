@@ -170,5 +170,35 @@ namespace Group1FinalProject.Controllers
             return Records;
         }
 
+
+        public ActionResult DeleteReport(string DeleteName)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            finaltable ToDelete = db.finaltables.Find(DeleteName);
+
+            db.finaltables.Remove(ToDelete);
+
+            db.SaveChanges();
+
+            return RedirectToAction("MyReportsView", "Owner");
+        }
+
+        public ActionResult TickReport(string ReportCount)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            finaltable ReportNumber = db.finaltables.Find(ReportCount);
+
+            int count = Convert.ToInt32(ReportNumber.reportedtimes);
+
+            int newcount = (count + 1);
+
+            ReportNumber.reportedtimes = Convert.ToByte(newcount);
+
+            db.SaveChanges();
+
+            return RedirectToAction("OwnerView", "Owner");
+        }
     }
 }
