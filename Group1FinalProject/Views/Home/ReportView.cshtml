@@ -1,7 +1,7 @@
-﻿@{
+﻿
+@{
     ViewBag.Title = "ReportView";
 }
-
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
@@ -55,47 +55,56 @@
     <br />
     @ViewBag.Reported
     <br />
-    <center>
-
-        <input id="submit" type="button" value="Place Marker">
-        <input id="address" type="hidden" value="@ViewBag.oneLine">
-        <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
-        <h4>Map of Reported Squatters</h4>
-        <div id="map" style="width:500px;height:500px;"></div><div>
-            <br />
-            <br />
-            <br />
-        </div>
+    @*@foreach (var item in ViewBag.Locations)
+    {
+        @item.address
         <br />
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
+    }*@
+    <br />
+    <center>
+        <form name="input" action="/Home/ReportView" onsubmit="return validateForm()"  method="post">
+            <input id="address" type="hidden" name="address" value="@ViewBag.oneLine">
+            Time of Day:<br>
+            <input type="text" name="timeofday" id="timeofday">
+            <br />
+            Illicit drugs on property? :<br>
+            <input type="checkbox" name="narc" value="y" id="narc"> Yes<br>
+            <input type="checkbox" name="narc" value="n" id="narc"> No<br>
+            <input type="checkbox" name="narc" value="s" id="narc"> Not Sure<br>
+            Have the police been notified of the squatter? :<br>
+            <input type="checkbox" name="police" value="y" id="police"> Yes<br>
+            <input type="checkbox" name="police" value="n" id="police"> No<br>
+            <br />
+            Enter estimated start date of squatting:<br>
+            <input type="date" name="startsquat" id="startsquat">
+            <br />
+            When is the squatter normally at premise? <br>
+            <input type="text" name="datereported" id="datereported">
+            <br />
+            Please enter any additional comments below:<br>
+            <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
+            <br />
+            <input id="submit" type="submit" value="Place Marker">
+            </form>
 
 
-    </center>
-    Time of Day:<br>
-    <input type="text" name="address" id="address">
+            <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
+            <h4>Map of Reported Squatters</h4>
+            <div id="map" style="width:500px;height:500px;"></div><div>
+                <br />
+                <script>initMap();</script>
+                <br />
+                <br />
+            </div>
+            <br />
+            <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+            <meta charset="utf-8">
+</center>
     <br />
-    Illicit drugs on property? :<br>
-    <input type="checkbox" name="narc" value="narc"> Yes<br>
-    <input type="checkbox" name="narc" value="narc"> No<br>
-    <input type="checkbox" name="narc" value="narc"> Not Sure<br>
-    Have the police been notified of the squatter? :<br>
-    <input type="checkbox" name="narc" value="narc"> Yes<br>
-    <input type="checkbox" name="narc" value="narc"> No<br>
     <br />
-    Enter estimated start date of squatting:<br>
-    <input type="date" id="startsquat">
-    <br />
-    When is the squatter normally at premise? <br>
-    <input type="text" name="datereported" id="datereported">
-    <br />
-    Please enter any additional comments below:<br>
-    <TEXTAREA Name="comments" ROWS=4 COLS=30></TEXTAREA>
-    <br />
-
-    <script type="text/javascript">
-
-
+</body>
+</html>
+<script type="text/javascript">
                 function initMap()
                 {
                     var modelarray = new Array();
@@ -123,6 +132,13 @@
                 function geocodeAddress(geocoder, resultsMap)
                 {
                     var address = document.getElementById('address').value;
+                    var timeofday = document.getElementById('timeofday').value;
+                    var narc = document.getElementById('narc').value;
+                    var police = document.getElementById('police').value;
+                    var startsquat = document.getElementById('startsquat').value;
+                    var datereported = document.getElementById('datereported').value;
+                    var comments = document.getElementById('comments').value;
+
                     geocoder.geocode({ 'address': address }, function (results, status) {
                         if (status === 'OK')
                         {
@@ -131,7 +147,7 @@
                                 map: resultsMap,
                                 position: results[0].geometry.location
                             })
-                            PassData(address);
+                            PassData(address, timeofday, narc, police, startsquat, datereported, comments);
                         } else
                         {
                             alert('Geocode was not successful for the following reason: ' + status);
@@ -158,10 +174,18 @@
                     });
                 }
 
-                function PassData(address) {
+                function PassData(address, timeofday, narc, police, startsquat, datereported, comments)
+                {
                     //create javascript object
                     var model = new Object();
+
                     model.address = address;
+                    model.timeofday = timeofday;
+                    model.narc = narc;
+                    model.police = police;
+                    model.startsquat = startsquat;
+                    model.datereported = datereported;
+                    model.comments = comments
 
                     jQuery.ajax({
                         type: "POST",
@@ -176,16 +200,26 @@
                             alert(errMsg);
                         }
                     });
+                    window.location.reload();
                 }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
-    </script>
 
-    <br />
-    <br />
+        function validateForm() {
 
-</body>
+            var address = document.getElementById("address").value;
+            var timeofday = document.getElementById("timeofday").value;
+            var narc = document.getElementById("narc").value;
+            var police = document.getElementById("police").value;
+            var startsquat = document.getElementById("startsquat").value;
+            var datereported = document.getElementById("datereported").value;
+            var comments = document.getElementById("comments").value;
 
-
-</html>
+            if (address == "" || timeofday == "" || narc == "" || police == "" || startsquat == "" || datereported == "" || comments == "")
+            {
+                alert("Please fill out all fields!");
+                return false;
+            }
+        }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
+</script>

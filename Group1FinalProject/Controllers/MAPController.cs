@@ -22,18 +22,9 @@ namespace Group1FinalProject.Controllers
         {
             string reported = "";
 
-            //Random rdn = new Random();
-            //int randomNumber = rdn.Next(0, 5000);
-
-            //string name = Convert.ToString(randomNumber);
 
             coordinates.flagged = "y";
             coordinates.username = Convert.ToString(WindowsIdentity.GetCurrent().User);
-            coordinates.comments = "Tests comments";
-            coordinates.timeofday = "9:00 to 5:00 PM";
-            coordinates.narc = "x";
-            coordinates.startsquat = DateTime.Parse("04/19/2016");
-            coordinates.police = "o";
             coordinates.datereported = DateTime.Now;
             coordinates.reportedtimes = 1;
 
