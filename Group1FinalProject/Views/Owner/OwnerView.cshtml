@@ -27,20 +27,39 @@
     N: No - this address is no longer "flagged" with a potential squatter<br />
 </p>
 <br />
-<center><form action="SearchData">
-    Search by status:
+<center><form action="ReturnFlagData">
+    Search by flagged status:
     <select name="SearchFlag">
-        @foreach (var element in ViewBag.SearchItems)
+        @foreach (var element in ViewBag.SearchFlagData)
         {
             <option value="@element">@element</option>
         }
     </select>
     <input type="submit" value="Submit">
+    </form>
 
+    <form action="ReturnPoliceData">
+    Search by police status:
+    <select name="SearchPolice">
+        @foreach (var element in ViewBag.SearchPoliceData)
+        {
+            <option value="@element">@element</option>
+        }
+    </select>
+    <input type="submit" value="Submit">
+    </form>
+
+    <form action="SortDateDesc">
+        Search by Ascending or Descending Date:
+        <select name="OrderValue">
+            <option value="Desc">Desc</option>
+            <option value="Asc">Asc</option>
+        </select>
+        <input type="submit" value="Submit">
     </form>
     <table border="1">
         <tr><th>Address</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th><th>Date Reported</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Edit Comments</th><th>File a Report</th></tr>
-        @foreach (var item in ViewBag.Data)
+        @foreach (var item in ViewBag.AllData)
         {
             <tr>
                 <td>@item.address</td>

@@ -13,10 +13,72 @@ namespace Group1FinalProject.Controllers
         // GET: DB
         public ActionResult OwnerView()
         {
-            ViewBag.SearchItems = PullData();
-            ViewBag.Data = GetAllRecords();
+            ViewBag.AllData = GetAllRecords();
+            ViewBag.SearchFlagData = PullSearchFlagData();
+            ViewBag.SearchPoliceData = PullSearchPoliceData();
 
             return View();
+        }
+
+        public List<finaltable> GetAllRecords()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<finaltable> Records = db.finaltables.ToList();
+
+            return Records;
+        }
+
+        public ActionResult SearchAddress(string AddressID)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<finaltable> AddressList = db.finaltables.Where(x => x.address.ToUpper().Contains(AddressID.ToUpper())).ToList();
+
+            ViewBag.AllData = AddressList;
+            ViewBag.SearchFlagData = PullSearchFlagData();
+            ViewBag.SearchPoliceData = PullSearchPoliceData();
+
+            return View("OwnerView");
+        }
+        public List<string> PullSearchFlagData()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            return db.finaltables.Select(x => x.flagged).Distinct().ToList();
+        }
+
+        public List<string> PullSearchPoliceData()
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            return db.finaltables.Select(x => x.police).Distinct().ToList();
+        }
+
+        public ActionResult ReturnFlagData(string SearchFlag)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<finaltable> FlagList = db.finaltables.Where(x => x.flagged.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
+
+            ViewBag.AllData = FlagList;
+            ViewBag.SearchFlagData = PullSearchFlagData();
+            ViewBag.SearchPoliceData = PullSearchPoliceData();
+
+            return View("OwnerView");
+        }
+
+        public ActionResult ReturnPoliceData(string SearchPolice)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+
+            List<finaltable> PoliceList = db.finaltables.Where(x => x.police.ToUpper().Contains(SearchPolice.ToUpper())).ToList();
+
+            ViewBag.AllData = PoliceList;
+            ViewBag.SearchFlagData = PullSearchFlagData();
+            ViewBag.SearchPoliceData = PullSearchPoliceData();
+
+            return View("OwnerView");
         }
 
         public ActionResult DetailsView()
@@ -34,34 +96,6 @@ namespace Group1FinalProject.Controllers
             ViewBag.Data = GetAllMyRecords();
 
             return View();
-        }
-
-        public List<string> PullData()
-        {
-            SquatDBEntities db = new SquatDBEntities();
-
-            return db.finaltables.Select(x => x.flagged).Distinct().ToList();
-        }
-
-        public List<finaltable> GetAllRecords()
-        {
-            SquatDBEntities db = new SquatDBEntities();
-
-            List<finaltable> Records = db.finaltables.ToList();
-
-            return Records;
-        }
-
-        public ActionResult SearchData(string SearchFlag)
-        {
-            SquatDBEntities db = new SquatDBEntities();
-
-            List<finaltable> AdList = db.finaltables.Where(x => x.flagged.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
-
-            ViewBag.Names = PullData();
-            ViewBag.Message = AdList;
-
-            return View("OwnerView");
         }
 
         public ActionResult UnFlag(string UpdateName)
@@ -106,18 +140,6 @@ namespace Group1FinalProject.Controllers
             }
             else
             return RedirectToAction("OwnerView");
-        }
-
-        public ActionResult SearchAddress(string AddressID)
-        {
-            SquatDBEntities db = new SquatDBEntities();
-
-            List<finaltable> AddressList = db.finaltables.Where(x => x.address.ToUpper().Contains(AddressID.ToUpper())).ToList();
-
-            ViewBag.Names = PullData();
-            ViewBag.Message = AddressList;
-
-            return View("OwnerView");
         }
 
         public ActionResult SaveComments(finaltable ToBeUpdated)
@@ -199,6 +221,26 @@ namespace Group1FinalProject.Controllers
             db.SaveChanges();
 
             return RedirectToAction("OwnerView", "Owner");
+        }
+
+        public ActionResult SortDateDesc(string OrderValue)
+        {
+            SquatDBEntities db = new SquatDBEntities();
+            if(OrderValue == "Desc")
+            {
+                List<finaltable> DateList = db.finaltables.OrderByDescending(x => x.datereported).ToList();
+                ViewBag.AllData = DateList;
+            }
+            if (OrderValue == "Asc")
+            {
+                List<finaltable> DateList = db.finaltables.OrderBy(x => x.datereported).ToList();
+                ViewBag.AllData = DateList;
+            }
+
+            ViewBag.SearchFlagData = PullSearchFlagData();
+            ViewBag.SearchPoliceData = PullSearchPoliceData();
+
+            return View("OwnerView");
         }
     }
 }
