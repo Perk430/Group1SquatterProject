@@ -46,8 +46,8 @@ namespace Group1FinalProject.Controllers
 
             TempData["reported"] = reported;
 
-            // return View("../Report/ReportView");
-            return RedirectToAction("ReportView", "Report");
+            return View();
+            //return RedirectToAction("ReportView", "Report");
         }
 
  
