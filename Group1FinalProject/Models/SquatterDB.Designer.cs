@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Users\tdrie\Documents\Visual Studio 2015\Projects\Group1FinalProject\Group1FinalProject\Models\SquatterDB.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\alex\Desktop\Group1SquatterProject\Group1FinalProject\Models\SquatterDB.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

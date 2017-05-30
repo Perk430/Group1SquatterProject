@@ -19,7 +19,7 @@ namespace Group1FinalProject.Controllers
         {
             return View();
         }
-        [Authorize]
+        
         public ActionResult GetONBData(EntryData Input)
         {
             //formatting for properties
