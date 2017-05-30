@@ -2,107 +2,176 @@
     ViewBag.Title = "ReportView";
 }
 
+
+<!DOCTYPE HTML>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <html>
+
 <head>
-
+    <title>simplestyle_banner - a page</title>
+    <meta name="description" content="website description" />
+    <meta name="keywords" content="website keywords, website keywords" />
+    <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css" />
 </head>
+
 <body>
-
-
-    <br />
-    <h3>Report A Squatter</h3>
-    <br />
-
-    <p>
-        If you believe a property is being occupied by a squatter, please enter the address<br />
-        below of the property. This will then flag the address in our database. Property owners <br />
-        will have the ability to check if their property has a squatter, allowing them take <br />
-        neccessary action. Once you report the address, please fill the form below to provide us <br />
-        additional information.
-    </p>
-    <br />
-    <p>
-        <i>
-            If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
-            our squatter database.
-        </i>
-    </p>
-    <form name="input" form action="/API/GetONBData" method="post">
-        Street: <i>(i.e. 1245 Example St )</i><br />
-        <input type="text" name="Address1" id="Address1"><br>
-        City, State:<br>
-        <input type="text" name="Address2" id="Address2">
-        <br />
-        <br />
-        <input type="submit" value="Search">
-    </form>
-
-    <br />
-    @if (ViewBag.house != null)
-    {
-        @ViewBag.house
-    }
-    @ViewBag.oneLine
-    <br />
-    @ViewBag.absenteeind
-    <br />
-    @ViewBag.propclass
-    <br />
-    @ViewBag.propsubtype
-    <br />
-    <br />
-    @ViewBag.Reported
-    <br />
-    @foreach (var item in ViewBag.Locations)
-    {
-        @item.address
-        <br />
-    }
-    <center>
-        <form name="input" action="/MAP/Redirect" onsubmit="return validateForm()" method="post">
-            <input id="address" type="hidden" name="address" value="@ViewBag.oneLine">
-            Time of Day:<br>
-            <input type="text" name="timeofday" id="timeofday">
-            <br />
-            Illicit drugs on property? :<br>
-            <input type="checkbox" name="narc" value="y" id="narc"> Yes<br>
-            <input type="checkbox" name="narc" value="n" id="narc"> No<br>
-            <input type="checkbox" name="narc" value="s" id="narc"> Not Sure<br>
-            Have the police been notified of the squatter? :<br>
-            <input type="checkbox" name="police" value="y" id="police"> Yes<br>
-            <input type="checkbox" name="police" value="n" id="police"> No<br>
-            <br />
-            Enter estimated start date of squatting:<br>
-            <input type="date" name="startsquat" id="startsquat">
-            <br />
-            When is the squatter normally at premise? <br>
-            <input type="text" name="datereported" id="datereported">
-            <br />
-            Please enter any additional comments below:<br>
-            <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
-            <br />
-            <input id="submit" type="submit" value="Place Marker">
-        </form>
-        
-        <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
-        <h4>Map of Reported Squatters</h4>
-        <div id="map" style="width:500px;height:500px;"></div><div>
-            <br />
-            <br />
-            <br />
+    <div id="main">
+        <div id="header">
+            <div id="logo">
+                <div id="logo_text">
+                    <!-- class="logo_colour", allows you to change the colour of the text -->
+                    <h1><a href="index.html">simple<span class="logo_colour">style_banner</span></a></h1>
+                    <h2>Simple. Contemporary. Website Template.</h2>
+                </div>
+            </div>
+            <div id="menubar">
+                <ul id="menu">
+                    <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
+                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    <li><a href="/Report/ReportView">Report A Squatter</a></li>
+                    <li><a href="/Owner/OwnerView">Our Database</a></li>
+                    <li><a href="/Owner/MyReportsView">Your Reports</a></li>
+                    <li><a href="/Home/FAQView">FAQ</a></li>
+                </ul>
+            </div>
         </div>
-        <br />
-        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-        <meta charset="utf-8">
+        <div id="content_header"></div>
+        <div id="site_content">
+            <div id="sidebar_container">
+                <div class="sidebar">
+                    <div class="sidebar_top"></div>
+                    <div class="sidebar_item">
+                        <!-- insert your sidebar items here -->
+                        <h3>Latest News</h3>
+                        <h4>New Website Launched</h4>
+                        <h5>February 1st, 2014</h5>
+                        <p>2014 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+                    </div>
+                    <div class="sidebar_base"></div>
+                </div>
+                <div class="sidebar">
+                    <div class="sidebar_top"></div>
+                    <div class="sidebar_item">
+                        <h3>Useful Links</h3>
+                        <ul>
+                            <li><a href="#">link 1</a></li>
+                            <li><a href="#">link 2</a></li>
+                            <li><a href="#">link 3</a></li>
+                            <li><a href="#">link 4</a></li>
+                        </ul>
+                    </div>
+                    <div class="sidebar_base"></div>
+                </div>
+                <div class="sidebar">
+                    <div class="sidebar_top"></div>
+                    <div class="sidebar_item">
+                        <h3>Search</h3>
+                        <form method="post" action="#" id="search_form">
+                            <p>
+                                <input class="search" type="text" name="search_field" value="Enter keywords....." />
+                                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
+                            </p>
+                        </form>
+                    </div>
+                    <div class="sidebar_base"></div>
+                </div>
+            </div>
+            <div id="content">
+                <!-- insert the page content here -->
+                <br />
+                <h3>Report A Squatter</h3>
+                <br />
 
-    </center>
- 
-    <script type="text/javascript">
+                <p>
+                    If you believe a property is being occupied by a squatter, please enter the address<br />
+                    below of the property. This will then flag the address in our database. Property owners <br />
+                    will have the ability to check if their property has a squatter, allowing them take <br />
+                    neccessary action. Once you report the address, please fill the form below to provide us <br />
+                    additional information.
+                </p>
+                <br />
+                <p>
+                    <i>
+                        If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
+                        our squatter database.
+                    </i>
+                </p>
+                <form name="input" form action="/API/GetONBData" method="post">
+                    Street: <i>(i.e. 1245 Example St )</i><br />
+                    <input type="text" name="Address1" id="Address1"><br>
+                    City, State:<br>
+                    <input type="text" name="Address2" id="Address2">
+                    <br />
+                    <br />
+                    <input type="submit" value="Search">
+                </form>
+
+                <br />
+                @if (ViewBag.house != null)
+                {
+                    @ViewBag.house
+                }
+                @ViewBag.oneLine
+                <br />
+                @ViewBag.absenteeind
+                <br />
+                @ViewBag.propclass
+                <br />
+                @ViewBag.propsubtype
+                <br />
+                <br />
+                @ViewBag.Reported
+                <br />
+                @foreach (var item in ViewBag.Locations)
+                {
+                    @item.address
+                    <br />
+                }
+                <center>
+                    <form name="input" action="/MAP/Redirect" onsubmit="return validateForm()" method="post">
+                        <input id="address" type="hidden" name="address" value="@ViewBag.oneLine">
+                        Time of Day:<br>
+                        <input type="text" name="timeofday" id="timeofday">
+                        <br />
+                        Illicit drugs on property? :<br>
+                        <input type="checkbox" name="narc" value="y" id="narc"> Yes<br>
+                        <input type="checkbox" name="narc" value="n" id="narc"> No<br>
+                        <input type="checkbox" name="narc" value="s" id="narc"> Not Sure<br>
+                        Have the police been notified of the squatter? :<br>
+                        <input type="checkbox" name="police" value="y" id="police"> Yes<br>
+                        <input type="checkbox" name="police" value="n" id="police"> No<br>
+                        <br />
+                        Enter estimated start date of squatting:<br>
+                        <input type="date" name="startsquat" id="startsquat">
+                        <br />
+                        When is the squatter normally at premise? <br>
+                        <input type="text" name="datereported" id="datereported">
+                        <br />
+                        Please enter any additional comments below:<br>
+                        <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
+                        <br />
+                        <input id="submit" type="submit" value="Place Marker">
+                    </form>
+
+                    <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
+                    <h4>Map of Reported Squatters</h4>
+                    <div id="map" style="width:500px;height:500px;"></div><div>
+                        <br />
+                        <br />
+                        <br />
+                    </div>
+                    <br />
+                    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+                    <meta charset="utf-8">
+
+                </center>
+
+                <script type="text/javascript">
 
         var modelarray = new Array();
         modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
- 
+
         for (var i = 0; i < modelarray.length; i++)
         {
             document.write(modelarray[i].address)
@@ -220,12 +289,32 @@
                 return false;
             }
         }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
-    </script>
+                </script>
+                <script async defer
+                        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
+                </script>
 
-    <br />
-    <br />
+                <br />
+                <br />
+            </div>
+        </div>
+        <div id="content_footer"></div>
+        <div id="footer">
+            <p><a href="index.html">Home</a> | <a href="examples.html">Examples</a> | <a href="page.html">A Page</a> | <a href="another_page.html">Another Page</a> | <a href="contact.html">Contact Us</a></p>
+            <p>Copyright &copy; simplestyle_banner | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">HTML5 Web Templates</a></p>
+        </div>
+    </div>
+</body>
+</html>
+
+
+<html>
+<head>
+
+</head>
+<body>
+
+
+   
 </body>
 </html>
