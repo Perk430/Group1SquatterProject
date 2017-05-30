@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "ReportView";
 }
 
@@ -55,14 +54,13 @@
     <br />
     @ViewBag.Reported
     <br />
-    @*@foreach (var item in ViewBag.Locations)
+    @foreach (var item in ViewBag.Locations)
     {
         @item.address
         <br />
-    }*@
-    <br />
+    }
     <center>
-        <form name="input" action="/Home/ReportView" onsubmit="return validateForm()"  method="post">
+        <form name="input" action="/MAP/Redirect" onsubmit="return validateForm()" method="post">
             <input id="address" type="hidden" name="address" value="@ViewBag.oneLine">
             Time of Day:<br>
             <input type="text" name="timeofday" id="timeofday">
@@ -85,94 +83,98 @@
             <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
             <br />
             <input id="submit" type="submit" value="Place Marker">
-            </form>
-
-
-            <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
-            <h4>Map of Reported Squatters</h4>
-            <div id="map" style="width:500px;height:500px;"></div><div>
-                <br />
-                <script>initMap();</script>
-                <br />
-                <br />
-            </div>
+        </form>
+        
+        <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
+        <h4>Map of Reported Squatters</h4>
+        <div id="map" style="width:500px;height:500px;"></div><div>
             <br />
-            <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-            <meta charset="utf-8">
-</center>
-    <br />
-    <br />
-</body>
-</html>
-<script type="text/javascript">
-                function initMap()
-                {
-                    var modelarray = new Array();
-                    modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+            <br />
+            <br />
+        </div>
+        <br />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+        <meta charset="utf-8">
 
-                    var map = new google.maps.Map(document.getElementById('map'), {
-                        zoom: 4,
-                        center: { lat: 42.331429, lng: -83.045753 }
-                    });
+    </center>
+ 
+    <script type="text/javascript">
 
-                    var PreLoadgeocoder = new google.maps.Geocoder();
-                    var geocoder = new google.maps.Geocoder();
+        var modelarray = new Array();
+        modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
+ 
+        for (var i = 0; i < modelarray.length; i++)
+        {
+            document.write(modelarray[i].address)
+        }
+                 function initMap()
+                 {
+                     var modelarray = new Array();
+                     modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
 
-                    for (var i = 0; i < modelarray.length; i++)
-                    {
-                        var location = modelarray[i].address;
-                        PreGeocodeAddress(location, PreLoadgeocoder, map);
-                    }
+                     var map = new google.maps.Map(document.getElementById('map'), {
+                         zoom: 4,
+                         center: { lat: 42.331429, lng: -83.045753 }
+                     });
 
-                    document.getElementById('submit').addEventListener('click', function () {
-                        geocodeAddress(geocoder, map);
-                    });
-                }
+                     var PreLoadgeocoder = new google.maps.Geocoder();
+                     var geocoder = new google.maps.Geocoder();
 
-                function geocodeAddress(geocoder, resultsMap)
-                {
-                    var address = document.getElementById('address').value;
-                    var timeofday = document.getElementById('timeofday').value;
-                    var narc = document.getElementById('narc').value;
-                    var police = document.getElementById('police').value;
-                    var startsquat = document.getElementById('startsquat').value;
-                    var datereported = document.getElementById('datereported').value;
-                    var comments = document.getElementById('comments').value;
+                     for (var i = 0; i < modelarray.length; i++)
+                     {
+                         var location = modelarray[i].address;
+                         PreGeocodeAddress(location, PreLoadgeocoder, map);
+                     }
 
-                    geocoder.geocode({ 'address': address }, function (results, status) {
-                        if (status === 'OK')
-                        {
-                            resultsMap.setCenter(results[0].geometry.location);
-                            var marker = new google.maps.Marker({
-                                map: resultsMap,
-                                position: results[0].geometry.location
-                            })
-                            PassData(address, timeofday, narc, police, startsquat, datereported, comments);
-                        } else
-                        {
-                            alert('Geocode was not successful for the following reason: ' + status);
-                        }
-                    });
-                }
+                     document.getElementById('submit').addEventListener('click', function () {
+                         geocodeAddress(geocoder, map);
+                     });
+                 }
 
-                function PreGeocodeAddress(location, PreLoadgeocoder, resultsMap)
-                {
-                    var address = location;
+                 function geocodeAddress(geocoder, resultsMap)
+                 {
+                     var address = document.getElementById('address').value;
+                     var timeofday = document.getElementById('timeofday').value;
+                     var narc = document.getElementById('narc').value;
+                     var police = document.getElementById('police').value;
+                     var startsquat = document.getElementById('startsquat').value;
+                     var datereported = document.getElementById('datereported').value;
+                     var comments = document.getElementById('comments').value;
 
-                    PreLoadgeocoder.geocode({ 'address': address }, function (results, status) {
-                        if (status === 'OK')
-                        {
-                            resultsMap.setCenter(results[0].geometry.location);
-                            var marker = new google.maps.Marker({
-                                map: resultsMap,
-                                position: results[0].geometry.location
-                            })
-                        } else
-                        {
-                            alert('Geocode was not successful for the following reason: ' + status);
-                        }
-                    });
-                }
+                     geocoder.geocode({ 'address': address }, function (results, status) {
+                         if (status === 'OK')
+                         {
+                             resultsMap.setCenter(results[0].geometry.location);
+                             var marker = new google.maps.Marker({
+                                 map: resultsMap,
+                                 position: results[0].geometry.location
+                             })
+                             PassData(address, timeofday, narc, police, startsquat, datereported, comments);
+                         } else
+                         {
+                             alert('Geocode was not successful for the following reason: ' + status);
+                         }
+                     });
+                 }
+
+                 function PreGeocodeAddress(location, PreLoadgeocoder, resultsMap)
+                 {
+                     var address = location;
+
+                     PreLoadgeocoder.geocode({ 'address': address }, function (results, status) {
+                         if (status === 'OK')
+                         {
+                             resultsMap.setCenter(results[0].geometry.location);
+                             var marker = new google.maps.Marker({
+                                 map: resultsMap,
+                                 position: results[0].geometry.location
+                             })
+                         } else
+                         {
+                             alert('Geocode was not successful for the following reason: ' + status);
+                         }
+                     });
+                 }
 
                 function PassData(address, timeofday, narc, police, startsquat, datereported, comments)
                 {
@@ -218,7 +220,12 @@
                 return false;
             }
         }
-</script>
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
-</script>
+    </script>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3uXZRFB9AlWQe-ZoMa4tDzgU_l_XUB_0&callback=initMap">
+    </script>
+
+    <br />
+    <br />
+</body>
+</html>

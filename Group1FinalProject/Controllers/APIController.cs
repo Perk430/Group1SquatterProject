@@ -103,7 +103,7 @@ namespace Group1FinalProject.Controllers
             TempData["house"] = house;
 
             // return View("../Home/ReportView");
-            return RedirectToAction("ReportView", "Home");
+            return RedirectToAction("ReportView", "Report");
         }
     }
 }

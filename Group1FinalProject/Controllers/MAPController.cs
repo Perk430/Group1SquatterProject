@@ -7,6 +7,7 @@ using Group1FinalProject.Models;
 using System.Security.Principal;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System.Threading.Tasks;
 
 namespace Group1FinalProject.Controllers
 {
@@ -17,11 +18,13 @@ namespace Group1FinalProject.Controllers
         {
             return View();
         }
-
+        public ActionResult Redirect()
+        {
+            return RedirectToAction("ReportView", "Report");
+        }
         public ActionResult SendData(finaltable coordinates)
         {
             string reported = "";
-
 
             coordinates.flagged = "y";
             coordinates.username = Convert.ToString(WindowsIdentity.GetCurrent().User);
@@ -33,9 +36,9 @@ namespace Group1FinalProject.Controllers
 
             try
             {
-                
                 db.SaveChanges();
-        }
+                
+            }
             catch
             {
                 reported = "Already Reported!";
@@ -43,18 +46,10 @@ namespace Group1FinalProject.Controllers
 
             TempData["reported"] = reported;
 
-            return View("../Home/ReportView");
+            // return View("../Report/ReportView");
+            return RedirectToAction("ReportView", "Report");
         }
 
-        public ActionResult PullData()
-        {
-            SquatDBEntities db = new SquatDBEntities();
-
-            List<finaltable> PinList = db.finaltables.ToList();
-
-            ViewBag.Locations = PinList;
-
-            return View("../Home/MapsView");
-        }
+ 
     }
 }

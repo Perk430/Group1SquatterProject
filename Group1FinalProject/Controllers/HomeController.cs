@@ -14,7 +14,6 @@ namespace Group1FinalProject.Controllers
         {
             return View();
         }
-       
         //[Authorize]
         public ActionResult OwnerView()
         {
@@ -30,20 +29,6 @@ namespace Group1FinalProject.Controllers
         //[Authorize]
         public ActionResult ReportView()
         {
-                SquatDBEntities db = new SquatDBEntities();
-
-                List<finaltable> PinList = db.finaltables.ToList();
-
-                ViewBag.Locations = PinList;
-
-                ViewBag.oneLine = TempData["oneLine"];
-                ViewBag.absenteeind = TempData["absenteeind"];
-                ViewBag.propclass = TempData["propclass"];
-                ViewBag.propsubtype = TempData["propsubtype"];
-                ViewBag.house = TempData["house"];
-
-                ViewBag.Reported = TempData["reported"];
-
                 return View();
         }
 
@@ -51,6 +36,7 @@ namespace Group1FinalProject.Controllers
         {
             return View();
         }
+
 
     }
 }

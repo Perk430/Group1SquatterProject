@@ -204,6 +204,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MAPController.cs" />
+    <Compile Include="Controllers\ReportController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -323,7 +324,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
     <Content Include="Views\Home\FAQView.cshtml" />
-    <Content Include="Views\Home\ReportView.cshtml" />
+    <Content Include="Views\Report\ReportView.cshtml" />
     <Content Include="Views\Owner\DetailsView.cshtml" />
     <Content Include="Views\Owner\AccountReportsView.cshtml" />
     <Content Include="Views\Owner\MyReportsView.cshtml" />
