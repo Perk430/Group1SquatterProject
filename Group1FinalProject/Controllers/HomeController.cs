@@ -36,7 +36,12 @@ namespace Group1FinalProject.Controllers
         {
             return View();
         }
+        public ActionResult AboutUs()
+        {
+            
 
+            return View();
+        }
 
     }
 }
