@@ -17,7 +17,7 @@
                     <h1><a href="index.html">The<span class="logo_colour">Squatter Spotter</span></a></h1>
                     <h2>Help Us Spot the Squatter</h2>
                     <br />
-                    @Html.Partial("_LoginPartial")
+                   
                 </div>
             </div>
             <div id="menubar">
@@ -29,8 +29,10 @@
                     <li><a href="/Owner/MyReportsView">Your Reports</a></li>
                     <li><a href="/Home/AboutUS">About Us</a></li>
                     <li><a href="/Home/FAQView">FAQ</a></li>
+                    <li><a href="/Account/Register">Register</a></li>
+                    <li><a href="/Account/Login">Login</a></li>
                 </ul>
-
+               
             </div>
         </div>
     </div>
@@ -41,8 +43,6 @@
             <p>&copy; @DateTime.Now.Year - A Squatter Spotter Application</p>
         </footer>
     </div>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>
