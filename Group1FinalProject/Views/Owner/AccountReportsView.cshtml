@@ -92,9 +92,11 @@
 
                             <label>@Model.address</label><input type="hidden" name="address" id="address" value="@Model.address" /><br />
                             <br />
-                            <label>Username: </label><input type="Text" name="Description" id="Description" value="@Model.username" /><br />
+                            <label>Time of Day: </label><input type="Text" name="Time" disabled="disabled" id="Time" value="@Model.timeofday" /><br />
                             <br />
-                            <label>Flagged: </label><input type="Text" name="Quantity" id="Quantity" value="@Model.flagged" /><br />
+                            <label>Flagged: </label><input type="Text" name="Quantity" disabled="disabled" id="Quantity" value="@Model.flagged" /><br />
+                            <br />
+                            <label>Narcotic Activity: </label><input type="Text" name="Y/N" disabled="disabled" id="Quantity" value="@Model.narc" /><br />
                             <br />
                             <label>Comments: </label><input type="Text" name="comments" id="comments" value="@Model.comments" /><br />
                             <br />
