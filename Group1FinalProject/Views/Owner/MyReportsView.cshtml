@@ -24,7 +24,7 @@
                     <h2>Protecting Your Neighborhood.</h2>
                 </div>
             </div>
-            <div id="menubar">
+            <div id="centeredmenu">
                 <ul id="menu">
                     <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -33,35 +33,40 @@
                     <li><a href="/Owner/MyReportsView">Your Reports</a></li>
                     <li><a href="/Home/AboutUS">About Us</a></li>
                     <li><a href="/Home/FAQView">FAQ</a></li>
+                    <li><a href="/Account/Register">Register</a></li>
+                    <li><a href="/Account/Login">Login</a></li>
                 </ul>
             </div>
 
         </div>
         <br />
-        <br />
-        <h2>Squatters you have reported!</h2>
-           <!-- insert the page content here -->
-                <table border="1">
-                    <tr><th>Address</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th><th>Date Reported</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Edit Comments</th><th>Delete Report</th></tr>
-                    @foreach (var item in ViewBag.Data)
-                    {
-                        <tr>
-                            <td>@item.address</td>
-                            <td>@item.timeofday</td>
-                            <td>@item.narc</td>
-                            <td>@item.startsquat</td>
-                            <td>@item.police</td>
-                            <td>@item.datereported</td>
-                            <td>@item.reportedtimes</td>
-                            <td>@item.comments</td>
-                            <td>@item.flagged</td>
-                            <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
-                            <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
-                            <td><a href="DeleteReport?DeleteName=@item.address" onclick="return confirm('Are you sure?')">Delete</a></td>
-                        </tr>
-                    }
-                </table>
-            </div>
+        <br /><center>
+    <h2>Squatters you have reported!</h2>
+    <!-- insert the page content here -->
+
+    <table border="1">
+        <tr><th>Address</th><th>Time Of Day</th><th>Narcotics?</th><th>Day of squat start</th><th>Police notified?</th><th>Date Reported</th><th>Times Reported</th><th>Comments</th><th>Flagged</th><th>Change status</th><th>Edit Comments</th><th>Delete Report</th></tr>
+        @foreach (var item in ViewBag.Data)
+        {
+            <tr>
+                <td>@item.address</td>
+                <td>@item.timeofday</td>
+                <td>@item.narc</td>
+                <td>@item.startsquat</td>
+                <td>@item.police</td>
+                <td>@item.datereported</td>
+                <td>@item.reportedtimes</td>
+                <td>@item.comments</td>
+                <td>@item.flagged</td>
+                <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
+                <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
+                <td><a href="DeleteReport?DeleteName=@item.address" onclick="return confirm('Are you sure?')">Delete</a></td>
+            </tr>
+        }
+    </table>
+</center>
+
+</div>
     <br />
     <br />
     <br />
