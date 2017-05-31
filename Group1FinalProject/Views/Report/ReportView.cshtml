@@ -45,9 +45,9 @@
                     <div class="sidebar_item">
                         <!-- insert your sidebar items here -->
                         <h3>Latest News</h3>
-                        <h4>New Website Launched</h4>
-                        <h5>February 1st, 2014</h5>
-                        <p>2014 sees the redesign of our website. Take a look around and let us know what you think.<br /><a href="#">Read more</a></p>
+                        <h4>Squatter sentenced to 14 years in prison</h4>
+                        <h5>May 30, 2017</h5>
+                        <p>Ring leader of a criminal enterprise that illegally took possession of several homes in the Chicago area has been sentenced to 14 years in prison<br /><a href="http://www.chicagotribune.com/suburbs/daily-southtown/news/ct-sta-beverly-squatter-sentenced-st-0524-20170523-story.html">Read more</a></p>
                     </div>
                     <div class="sidebar_base"></div>
                 </div>
@@ -56,26 +56,18 @@
                     <div class="sidebar_item">
                         <h3>Useful Links</h3>
                         <ul>
-                            <li><a href="#">link 1</a></li>
-                            <li><a href="#">link 2</a></li>
-                            <li><a href="#">link 3</a></li>
-                            <li><a href="#">link 4</a></li>
+                            <li><a href="/Report/ReportView">Report A Squatter</a></li>
+                            <li><a href="/Owner/OwnerView">Search Our Database</a></li>
+                            <li><a href="/Home/FAQView">Check out our FAQ's</a></li>
+                            <li><a href="/Home/AboutUS">Meet The Developers</a></li>
+
                         </ul>
                     </div>
                     <div class="sidebar_base"></div>
                 </div>
                 <div class="sidebar">
-                    <div class="sidebar_top"></div>
-                    <div class="sidebar_item">
-                        <h3>Search</h3>
-                        <form method="post" action="#" id="search_form">
-                            <p>
-                                <input class="search" type="text" name="search_field" value="Enter keywords....." />
-                                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
-                            </p>
-                        </form>
-                    </div>
-                    <div class="sidebar_base"></div>
+      
+       
                 </div>
             </div>
             <div id="content">
@@ -94,7 +86,7 @@
                 <br />
                 <p>
                     <i>
-                        If you are a homeowner, please visit our Homeowner's page to utilize our search tool and access <br />
+                        If you are a homeowner, please visit our Database page to utilize our search tool and access <br />
                         our squatter database.
                     </i>
                 </p>
@@ -124,21 +116,24 @@
                 <br />
                 @ViewBag.Reported
                 <br />
-                @foreach (var item in ViewBag.Locations)
+                @*@foreach (var item in ViewBag.Locations)
                 {
                     @item.address
                     <br />
-                }
-                <center>
+                }*@
+                <p><strong><mark>If you have spotted a squatter at the above address, please fill out the form below</mark> </strong></p>
+                        
                     <form name="input" action="/MAP/Redirect" onsubmit="return validateForm()" method="post">
                         <input id="address" type="hidden" name="address" value="@ViewBag.oneLine">
-                        Time of Day:<br>
+                        Enter time of day squatter has been spotted:<br>
                         <input type="text" name="timeofday" id="timeofday">
+                        <br />
                         <br />
                         Illicit drugs on property? :<br>
                         <input type="checkbox" name="narc" value="y" id="narc"> Yes<br>
                         <input type="checkbox" name="narc" value="n" id="narc"> No<br>
                         <input type="checkbox" name="narc" value="s" id="narc"> Not Sure<br>
+                        <br />
                         Have the police been notified of the squatter? :<br>
                         <input type="checkbox" name="police" value="y" id="police"> Yes<br>
                         <input type="checkbox" name="police" value="n" id="police"> No<br>
@@ -152,10 +147,10 @@
                         Please enter any additional comments below:<br>
                         <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
                         <br />
-                        <input id="submit" type="submit" value="Place Marker">
+                        <input id="submit" type="submit" value="Submit Report">
                     </form>
-
-                    <div> <font color="blue">   IF THE ADDRESS ABOVE HAS A SQUATTER, CLICK <b>"PLACE MARKER"</b> TO REPORT AND PLACE MARKER ON MAP</font></div>
+                <center>
+                    <div> </div>
                     <h4>Map of Reported Squatters</h4>
                     <div id="map" style="width:500px;height:500px;"></div><div>
                         <br />
