@@ -40,6 +40,8 @@ namespace Group1FinalProject.Controllers
             string propclass = "";
             string propsubtype = "";
             string house = "";
+            string wallType = "";
+            string garagetype = "";
             //request.UserAgent = @"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
             try
             {
@@ -90,7 +92,27 @@ namespace Group1FinalProject.Controllers
                 {
                     propsubtype = "No info";
                 }
+
+                try
+                {
+                    wallType = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/building/construction/wallType").InnerText;
+                }
+                catch
+                {
+                    wallType = "No Info";
+
+                }
+
+                try
+                {
+                    garagetype = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/building/parking/garagetype").InnerText;
+                }
+                catch
+                {
+                    garagetype = "No Info";
+                }
             }
+
             catch
             {
                 house = "Not a house!";
@@ -101,6 +123,8 @@ namespace Group1FinalProject.Controllers
             TempData["propclass"] = propclass;
             TempData["propsubtype"] = propsubtype;
             TempData["house"] = house;
+            TempData["wallType"] = wallType;
+            TempData["garagetype"] = garagetype;
 
             // return View("../Home/ReportView");
             return RedirectToAction("ReportView", "Report");

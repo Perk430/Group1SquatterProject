@@ -113,14 +113,13 @@
                 <br />
                 @ViewBag.propsubtype
                 <br />
+                @ViewBag.wallType
+                <br />
+                @ViewBag.garagetype
                 <br />
                 @ViewBag.Reported
                 <br />
-                @*@foreach (var item in ViewBag.Locations)
-                {
-                    @item.address
-                    <br />
-                }*@
+               
                 <p><strong><mark>If you have spotted a squatter at the above address, please fill out the form below</mark> </strong></p>
                         
                     <form name="input" action="/MAP/Redirect" onsubmit="return validateForm()" method="post">
@@ -165,13 +164,6 @@
 
                 <script type="text/javascript">
 
-        var modelarray = new Array();
-        modelarray = @Html.Raw(Json.Encode(ViewBag.Locations));
-
-        for (var i = 0; i < modelarray.length; i++)
-        {
-            document.write(modelarray[i].address)
-        }
                  function initMap()
                  {
                      var modelarray = new Array();

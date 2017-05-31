@@ -23,6 +23,8 @@ namespace Group1FinalProject.Controllers
             ViewBag.propclass = TempData["propclass"];
             ViewBag.propsubtype = TempData["propsubtype"];
             ViewBag.house = TempData["house"];
+            ViewBag.wallType = TempData["wallType"];
+            ViewBag.garagetype = TempData["garagetype"];
 
             ViewBag.Reported = TempData["reported"];
 
