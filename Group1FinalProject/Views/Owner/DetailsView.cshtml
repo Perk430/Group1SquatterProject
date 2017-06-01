@@ -44,7 +44,7 @@
                     <li><a href="/Owner/MyReportsView">Your Reports</a></li>
                     <li><a href="/Home/AboutUS">About Us</a></li>
                     <li><a href="/Home/FAQView">FAQ</a></li>
-                    @if (ViewBag.Name != null)
+                    @if (User.Identity.IsAuthenticated)
                     {
                         <li><a href="/Manage/ManageLogins">@ViewBag.Name</a></li>
                         <li><a href="/Account/LogOut">Logout</a></li>

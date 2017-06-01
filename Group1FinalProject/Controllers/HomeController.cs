@@ -13,7 +13,14 @@ namespace Group1FinalProject.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Name = User.Identity.GetUserName();
+            if(User.Identity == null)
+            {
+                ViewBag.Name = null;
+            }
+            else
+            {
+                ViewBag.Name = User.Identity.GetUserName();
+            }
 
             return View();
         }
@@ -28,7 +35,6 @@ namespace Group1FinalProject.Controllers
         public ActionResult FAQView()
         {
             ViewBag.Name = User.Identity.GetUserName();
-
             return View();
         }
         [Authorize]

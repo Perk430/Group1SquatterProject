@@ -14,6 +14,8 @@ namespace Group1FinalProject.Controllers
         // GET: DB
         public ActionResult OwnerView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
+
             ViewBag.AllData = GetAllRecords();
             ViewBag.SearchFlagData = PullSearchFlagData();
             ViewBag.SearchPoliceData = PullSearchPoliceData();
@@ -167,6 +169,8 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult UpdateComments(string ToBeUpdated)
         {
+            ViewBag.Name = User.Identity.GetUserName();
+
             SquatDBEntities db = new SquatDBEntities();
 
             finaltable FindItem = db.finaltables.Find(ToBeUpdated);

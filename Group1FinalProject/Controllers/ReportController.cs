@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Group1FinalProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Group1FinalProject.Controllers
 {
@@ -12,6 +13,7 @@ namespace Group1FinalProject.Controllers
         // GET: Report
         public ActionResult ReportView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
             //SquatDBEntities db = new SquatDBEntities();
 
             //List<finaltable> PinList = db.finaltables.ToList();
