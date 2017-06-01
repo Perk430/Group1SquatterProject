@@ -146,7 +146,7 @@
                         Please enter any additional comments below:<br>
                         <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
                         <br />
-                        <input id="submit" type="submit" value="Submit Report">
+                        <input id="submitgeo" type="submit" value="Submit Report">
                     </form>
                 <center>
                     <div> </div>
@@ -183,7 +183,7 @@
                          PreGeocodeAddress(location, PreLoadgeocoder, map);
                      }
 
-                     document.getElementById('submit').addEventListener('click', function () {
+                     document.getElementById('submitgeo').addEventListener('click', function () {
                          geocodeAddress(geocoder, map);
                      });
                  }
@@ -197,7 +197,7 @@
                      var startsquat = document.getElementById('startsquat').value;
                      var datereported = document.getElementById('datereported').value;
                      var comments = document.getElementById('comments').value;
-
+                     PassData(address, timeofday, narc, police, startsquat, datereported, comments);
                      geocoder.geocode({ 'address': address }, function (results, status) {
                          if (status === 'OK')
                          {
@@ -207,10 +207,10 @@
                                  position: results[0].geometry.location,
                                  icon: 'http://maps.google.com/mapfiles/kml/shapes/ranger_station.png',
                              })
-                             PassData(address, timeofday, narc, police, startsquat, datereported, comments);
+                             
                          } else
                          {
-                             alert('Geocode was not successful for the following reason: ' + status);
+                             console.log('Geocode was not successful for the following reason: ' + status);
                          }
                      });
                  }
