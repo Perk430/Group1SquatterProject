@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Group1FinalProject.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Group1FinalProject.Controllers
 {
@@ -12,34 +13,41 @@ namespace Group1FinalProject.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.Name = User.Identity.GetUserName();
+
             return View();
         }
-        //[Authorize]
+        [Authorize]
         public ActionResult OwnerView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
+
             return View();
         }
 
         public ActionResult FAQView()
         {
-            ViewBag.Message = "Your contact page.";
+            ViewBag.Name = User.Identity.GetUserName();
 
             return View();
         }
-        //[Authorize]
+        [Authorize]
         public ActionResult ReportView()
         {
-                return View();
+            ViewBag.Name = User.Identity.GetUserName();
+
+            return View();
         }
 
         public ActionResult DetailsView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
             return View();
         }
         public ActionResult AboutUs()
         {
-            
 
+            ViewBag.Name = User.Identity.GetUserName();
             return View();
         }
 

@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNet.Identity
 @{
     ViewBag.Title = null;
 }
@@ -32,14 +32,23 @@
                     <li><a href="/Owner/MyReportsView">Your Reports</a></li>
                     <li><a href="/Home/AboutUS">About Us</a></li>
                     <li><a href="/Home/FAQView">FAQ</a></li>
-                    <li><a href="/Account/Register">Register</a></li>
-                    <li><a href="/Account/Login">Login</a></li>
+                    @if (ViewBag.Name != null)
+                    {
+                        <li><a href="/Manage/ManageLogins">@ViewBag.Name</a></li>
+                        <li><a href="/Account/LogOut">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Account/Login">Login</a></li>
+                        <li><a href="/Account/Register">Register</a></li>
+                    }
+                    
+                    
                 </ul>
             </div>
         </div>
         <div id="content_header"></div>
         <div id="site_content">
-            <div id="banner"></div>
             <div id="sidebar_container">
                 <div class="sidebar">
                     <div class="sidebar_top"></div>
@@ -63,19 +72,6 @@
                             <li><a href="/Home/AboutUS">Meet The Developers</a></li>
 
                         </ul>
-                    </div>
-                    <div class="sidebar_base"></div>
-                </div>
-                <div class="sidebar">
-                    <div class="sidebar_top"></div>
-                    <div class="sidebar_item">
-                        <h3>Search</h3>
-                        <form method="post" action="#" id="search_form">
-                            <p>
-                                <input class="search" type="text" name="search_field" value="Enter keywords....." />
-                                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
-                            </p>
-                        </form>
                     </div>
                     <div class="sidebar_base"></div>
                 </div>
@@ -119,7 +115,7 @@
                     homeowners facing foreclosure while
                     foreclosure is in progress and tenants
                     fighting improper evictions.
-                    <br /><br />
+                    <br />
                 </p>
                 <b>How do I report a squatter on your website?</b>
                 <br />

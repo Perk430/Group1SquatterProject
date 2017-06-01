@@ -5,14 +5,26 @@
     Layout = null;
 }
 <!DOCTYPE HTML>
-<html>
+<style>
+    label {
+        width: 150px;
+        display: inline-block;
+        text-align: left;
+        vertical-align: bottom;
+        font-family: Verdana;
+    }
 
+    .formfield * {
+        vertical-align: top;
+    }
+</style>
+<html>
 <head>
     <title>simplestyle_banner - a page</title>
     <meta name="description" content="website description" />
     <meta name="keywords" content="website keywords, website keywords" />
     <meta http-equiv="content-type" content="text/html; charset=windows-1252" />
-    <link rel="stylesheet" type="text/css" href="~/Content/style.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/style.css" />
 </head>
 
 <body>
@@ -21,11 +33,11 @@
             <div id="logo">
                 <div id="logo_text">
                     <!-- class="logo_colour", allows you to change the colour of the text -->
-                    <h1><a href="index.html">simple<span class="logo_colour">style_banner</span></a></h1>
-                    <h2>Simple. Contemporary. Website Template.</h2>
+                    <h1><a href="index.html">Squatter<span class="logo_colour"> Spotter</span></a></h1>
+                    <h2>Protecting Your Neighborhood.</h2>
                 </div>
             </div>
-            <div id="menubar">
+            <div id="centeredmenu">
                 <ul id="menu">
                     <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -34,6 +46,17 @@
                     <li><a href="/Owner/MyReportsView">Your Reports</a></li>
                     <li><a href="/Home/AboutUS">About Us</a></li>
                     <li><a href="/Home/FAQView">FAQ</a></li>
+                    @if (ViewBag.Name != null)
+                    {
+                        <li><a href="/Manage/ManageLogins">@ViewBag.Name</a></li>
+                        <li><a href="/Account/LogOut">Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Account/Login">Login</a></li>
+                        <li><a href="/Account/Register">Register</a></li>
+                    }
+
                 </ul>
             </div>
         </div>
@@ -51,72 +74,42 @@
                     </div>
                     <div class="sidebar_base"></div>
                 </div>
-                <div class="sidebar">
-                    <div class="sidebar_top"></div>
-                    <div class="sidebar_item">
-                        <h3>Useful Links</h3>
-                        <ul>
-                            <li><a href="#">link 1</a></li>
-                            <li><a href="#">link 2</a></li>
-                            <li><a href="#">link 3</a></li>
-                            <li><a href="#">link 4</a></li>
-                        </ul>
-                    </div>
-                    <div class="sidebar_base"></div>
-                </div>
-                <div class="sidebar">
-                    <div class="sidebar_top"></div>
-                    <div class="sidebar_item">
-                        <h3>Search</h3>
-                        <form method="post" action="#" id="search_form">
-                            <p>
-                                <input class="search" type="text" name="search_field" value="Enter keywords....." />
-                                <input name="search" type="image" style="border: 0; margin: 0 0 -9px 5px;" src="style/search.png" alt="Search" title="Search" />
-                            </p>
-                        </form>
-                    </div>
-                    <div class="sidebar_base"></div>
-                </div>
             </div>
             <div id="content">
                 <!-- insert the page content here -->
-                <h2>AccountReports</h2>
-             
-                    <center>
-                        <font size="4" color="white" font face="verdana">Address Details</font>
-                        <br />
-                        <br />
-                        <br />
-                        <br />
-                        <form name="input" action="SaveComments" method="post">
+                <center>
+                    <font size="4" color="white" font face="verdana">Address Details</font>
+                    <br />
 
-                            <label>@Model.address</label><input type="hidden" name="address" id="address" value="@Model.address" /><br />
-                            <br />
-                            <label>Time of Day: </label><input type="Text" name="Time" disabled="disabled" id="Time" value="@Model.timeofday" /><br />
-                            <br />
-                            <label>Flagged: </label><input type="Text" name="Quantity" disabled="disabled" id="Quantity" value="@Model.flagged" /><br />
-                            <br />
-                            <label>Narcotic Activity: </label><input type="Text" name="Y/N" disabled="disabled" id="Quantity" value="@Model.narc" /><br />
-                            <br />
-                            <label>Comments: </label><input type="Text" name="comments" id="comments" value="@Model.comments" /><br />
+                    <form name="input" action="SaveComments" method="post">
+                        @Model.address<input type="hidden" name="address" id="address" value="@Model.address" /><br />
+                        <br />
+                        <br />
+                        <label>Time of Day: </label><input type="Text" name="Time" id="Time" value="@Model.timeofday" /><br />
+                        <br />
+                        <label>Flagged: </label><input type="Text" name="Quantity" id="Quantity" value="@Model.flagged" /><br />
+                        <br />
+                        <label>Narcotic Activity: </label><input type="Text" name="Y/N" id="Quantity" value="@Model.narc" /><br />
+                        <br />
+                        <p class="formfield">
+                            <label>Comments: </label><textarea type="Text" rows="6" name="comments" id="comments" value="@Model.comments" /></textarea><br />
                             <br />
                             <br />
                             <input type="submit" value="Submit">
-                        </form>
-                    </center>
-                </body>
-</div>
-        
+                        </p>
+                    </form>
+                </center>
+            </div>
+        </div>
         <div id="content_footer"></div>
         <div id="footer">
             <p><i>*Disclaimer:</i> The residential information on this site is only as accurate as provided Onboard Developer Platform.</p>
             <p><a href="/Report/ReportView">Report A Squatter</a> | <a href="/Owner/OwnerView">Search Our Database</a> | <a href="/Home/FAQView">Check out our FAQ's</a> | <a href="/Home/AboutUS">Meet The Developers</a>
-<p>Copyright &copy; simplestyle_banner | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">HTML5 Web Templates</a></p>
+            <p>Copyright &copy; simplestyle_banner | <a href="http://validator.w3.org/check?uri=referer">HTML5</a> | <a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> | <a href="http://www.html5webtemplates.co.uk">HTML5 Web Templates</a></p>
         </div>
     </div>
 </body>
 </html>
-
 
 
 

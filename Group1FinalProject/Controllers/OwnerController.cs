@@ -84,16 +84,21 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult DetailsView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
+
             return View();
         }
 
         public ActionResult AccountReportsView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
+
             return View();
         }
 
         public ActionResult MyReportsView()
         {
+            ViewBag.Name = User.Identity.GetUserName();
             ViewBag.Data = GetAllMyRecords();
 
             return View();
