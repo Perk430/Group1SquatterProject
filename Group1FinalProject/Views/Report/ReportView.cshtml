@@ -153,7 +153,7 @@
                         <br />
                         <br />
                         Illicit drugs on property? :<br>
-                        <select name="narc">
+                        <select name="narc" id="narc">
                             <option value="Y">Yes</option>
                             <option value="N">No</option>
                             <option value="U">Unsure</option>
@@ -161,7 +161,7 @@
                         <br />
                         <br />
                         Have the police been notified of the squatter? :<br>
-                        <select name="police">
+                        <select name="police" id="police">
                             <option value="Y">Yes</option>
                             <option value="N">No</option>
                         </select>
@@ -178,7 +178,7 @@
                     </form>
             
 
-                <script type="text/javascript">
+ <script type="text/javascript">
 
                  function initMap()
                  {
@@ -197,7 +197,6 @@
                      {
                          var location = modelarray[i].address;
                          PreGeocodeAddress(location, PreLoadgeocoder, map)
-                         setTimeout(2000);
                      }
 
                      document.getElementById('submitgeo').addEventListener('click', function () {
@@ -212,10 +211,9 @@
                      var narc = document.getElementById('narc').value;
                      var police = document.getElementById('police').value;
                      var startsquat = document.getElementById('startsquat').value;
-                     var datereported = document.getElementById('datereported').value;
                      var comments = document.getElementById('comments').value;
 
-                     PassData(address, timeofday, narc, police, startsquat, datereported, comments);
+                     PassData(address, timeofday, narc, police, startsquat, comments);
 
                      geocoder.geocode({ 'address': address }, function (results, status) {
                          if (status === 'OK')
@@ -252,7 +250,7 @@
                      });
                  }
 
-                function PassData(address, timeofday, narc, police, startsquat, datereported, comments)
+                 function PassData(address, timeofday, narc, police, startsquat, comments)
                 {
                     //create javascript object
                     var model = new Object();
@@ -262,7 +260,6 @@
                     model.narc = narc;
                     model.police = police;
                     model.startsquat = startsquat;
-                    model.datereported = datereported;
                     model.comments = comments
 
                     jQuery.ajax({
@@ -287,10 +284,9 @@
             var narc = document.getElementById("narc").value;
             var police = document.getElementById("police").value;
             var startsquat = document.getElementById("startsquat").value;
-            var datereported = document.getElementById("datereported").value;
             var comments = document.getElementById("comments").value;
 
-            if (address == "" || timeofday == "" || narc == "" || police == "" || startsquat == "" || datereported == "" || comments == "")
+            if (address == "" || timeofday == "" || narc == "" || police == "" || startsquat == "" || comments == "")
             {
                 alert("Please fill out all fields!");
                 return false;
