@@ -62,56 +62,68 @@
                 </p>
                 <br />
                 <center>
-                    <form action="ReturnFlagData">
-                        Search by flagged status:
-                        <select name="SearchFlag">
-                            @foreach (var element in ViewBag.SearchFlagData)
-                            {
-                                <option value="@element">@element</option>
-                            }
-                        </select>
-                        <input type="submit" value="Submit">
-                    </form>
+                    <div align="left">
+                        <form action="ReturnFlagData">
+                            Search by flagged status:
+                            <select name="SearchFlag">
+                                @foreach (var element in ViewBag.SearchFlagData)
+                                {
+                                    <option value="@element">@element</option>
+                                }
+                            </select>
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
 
-                    <form action="ReturnPoliceData">
-                        Search by police status:
-                        <select name="SearchPolice">
-                            @foreach (var element in ViewBag.SearchPoliceData)
-                            {
-                                <option value="@element">@element</option>
-                            }
-                        </select>
-                        <input type="submit" value="Submit">
-                    </form>
+                <br />
 
-                    <form action="SortDateDesc">
-                        Search by Ascending or Descending Date:
-                        <select name="OrderValue">
-                            <option value="Desc">Desc</option>
-                            <option value="Asc">Asc</option>
-                        </select>
-                        <input type="submit" value="Submit">
-                    </form>
-                    <table border="1">
-                        <tr><th><center>Address</center></th><th><center>Time Of Day</center></th><th><center>Narcotics?</center></th><th><center>Squatter Start Date</center></th><th><center>Police Notified?</center></th><th><center>Date Reported</center></th><th><center>Times Reported</center></th><th><center>Comments</center></th><th><center>Flagged</center></th><th><center>Change Status</center></th><th><center>Edit Comments</center></th><th><center>File a Report</center></th></tr>
-                        @foreach (var item in ViewBag.AllData)
-                        {
-                            <tr>
-                                <td>@item.address</td>
-                                <td style="text-align:center">@item.timeofday</td>
-                                <td style="text-align:center">@item.narc</td>
-                                <td style="text-align:center">@item.startsquat</td>
-                                <td style="text-align:center">@item.police</td>
-                                <td style="text-align:center">@item.datereported</td>
-                                <td style="text-align:center">@item.reportedtimes</td>
-                                <td style="text-align:center">@item.comments</td>
-                                <td style="text-align:center">@item.flagged</td>
-                                <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
-                                <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
-                                <td><a href="TickReport?ReportCount=@item.address" onclick="return confirm('File Report?')">Report</a></td>
-                            </tr>
-                        }
-                    </table>
+                    <div align="left">
+                        <form action="ReturnPoliceData">
+                            Search by police status:
+                            <select name="SearchPolice">
+                                @foreach (var element in ViewBag.SearchPoliceData)
+                                {
+                                    <option value="@element">@element</option>
+                                }
+                            </select>
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+
+                <br />
+
+                    <div align="left">
+                        <form action="SortDateDesc">
+                            Search by Ascending or Descending Date:
+                            <select name="OrderValue">
+                                <option value="Desc">Desc</option>
+                                <option value="Asc">Asc</option>
+                            </select>
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+                <br />
+                <br />
+                        <table border="1">
+                            <tr><th><center>Address</center></th><th><center>Time Of Day</center></th><th><center>Narcotics?</center></th><th><center>Squatter Start Date</center></th><th><center>Police Notified?</center></th><th><center>Date Reported</center></th><th><center>Times Reported</center></th><th><center>Comments</center></th><th><center>Flagged</center></th><th><center>Change Status</center></th><th><center>Edit Comments</center></th><th><center>File a Report</center></th></tr>
+                            @foreach (var item in ViewBag.AllData)
+                            {
+                                <tr>
+                                    <td>@item.address</td>
+                                    <td style="text-align:center">@item.timeofday</td>
+                                    <td style="text-align:center">@item.narc</td>
+                                    <td style="text-align:center">@item.startsquat</td>
+                                    <td style="text-align:center">@item.police</td>
+                                    <td style="text-align:center">@item.datereported</td>
+                                    <td style="text-align:center">@item.reportedtimes</td>
+                                    <td style="text-align:center">@item.comments</td>
+                                    <td style="text-align:center">@item.flagged</td>
+                                    <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
+                                    <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
+                                    <td><a href="TickReport?ReportCount=@item.address" onclick="return confirm('File Report?')">Report</a></td>
+                                </tr>
+                            }
+                        </table>
                 </center>
             </div>
         </div>
