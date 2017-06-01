@@ -25,7 +25,7 @@
                     <h2>Protecting Your Neighborhood.</h2>
                 </div>
             </div>
-            <div id="menubar">
+            <div id="centeredmenu">
                 <ul id="menu">
                     <!-- put class="selected" in the li tag for the selected page - to highlight which page you're on -->
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
@@ -34,6 +34,8 @@
                     <li><a href="/Owner/MyReportsView">Your Reports</a></li>
                     <li><a href="/Home/AboutUS">About Us</a></li>
                     <li><a href="/Home/FAQView">FAQ</a></li>
+                    <li><a href="/Account/Register">Register</a></li>
+                    <li><a href="/Account/Login">Login</a></li>
                 </ul>
             </div>
         </div>
@@ -73,94 +75,100 @@
             <div id="content">
                 <!-- insert the page content here -->
                 <br />
-                <h3>Report A Squatter</h3>
+                <h2><font size="6">Report A Squatter</font>  </h2>
                 <br />
 
                 <p>
-                    If you believe a property is being occupied by a squatter, please enter the address<br />
-                    below of the property. This will then flag the address in our database. Property owners <br />
-                    will have the ability to check if their property has a squatter, allowing them take <br />
-                    neccessary action. Once you report the address, please fill the form below to provide us <br />
+                    If you believe a property is being occupied by a squatter, please enter the address
+                    below of the property. <br />This will then flag the address in our database. Property owners 
+                    will have the ability to check if their property has a squatter, allowing them take 
+                    neccessary action. Once you report the address, please fill the form below to provide us
                     additional information.
                 </p>
                 <br />
                 <p>
                     <i>
-                        If you are a homeowner, please visit our Database page to utilize our search tool and access <br />
+                        If you are a homeowner, please visit Our Database page to utilize our search tool and access <br />
                         our squatter database.
                     </i>
                 </p>
-                <form name="input" form action="/API/GetONBData" method="post">
-                    Street: <i>(i.e. 1245 Example St )</i><br />
-                    <input type="text" name="Address1" id="Address1"><br>
-                    City, State:<br>
-                    <input type="text" name="Address2" id="Address2">
-                    <br />
-                    <br />
-                    <input type="submit" value="Search">
-                </form>
+                
+                    <center>
+                        <div> </div>
+                        <h2>Map of Reported Squatters</h2>
+                        <div id="map" style="width:650px;height:650px;"></div><div>
 
-                <br />
-                @if (ViewBag.house != null)
-                {
-                    @ViewBag.house
-                }
-                @ViewBag.oneLine
-                <br />
-                @ViewBag.absenteeind
-                <br />
-                @ViewBag.propclass
-                <br />
-                @ViewBag.propsubtype
-                <br />
-                @ViewBag.wallType
-                <br />
-                @ViewBag.garagetype
-                <br />
-                @ViewBag.Reported
-                <br />
-               
-                <p><strong><mark>If you have spotted a squatter at the above address, please fill out the form below</mark> </strong></p>
+                        </div>
+                        <br />
+                        <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+                        <meta charset="utf-8">
+
+                    </center>
+
+                    <h2>Please search the address of the squatter here</h2>
+                    <form name="input" form action="/API/GetONBData" method="post">
+                        Street: <i>(i.e. 1245 Example St )</i><br />
+                        <input type="text" name="Address1" id="Address1"><br>
+                        City, State:<br>
+                        <input type="text" name="Address2" id="Address2">
+                        <br />
+                        <br />
+                        <input type="submit" value="Search">
+                    </form>
+
+                    <br />
+                    @if (ViewBag.house != null)
+                    {
+                        @ViewBag.house
+                    }
+                    @ViewBag.oneLine
+                    <br />
+                    @ViewBag.absenteeind
+                    <br />
+                    @ViewBag.propclass
+                    <br />
+                    @ViewBag.propsubtype
+                    <br />
+                    @ViewBag.wallType
+                    <br />
+                    @ViewBag.garagetype
+                    <br />
+                    @ViewBag.Reported
+                    <br />
+
+<p><strong><mark>If you have spotted a squatter at the above address, please fill out the form below</mark> </strong></p>
                         
                     <form name="input" action="/MAP/Redirect" onsubmit="return validateForm()" method="post">
                         <input id="address" type="hidden" name="address" value="@ViewBag.oneLine">
-                        Enter time of day squatter has been spotted:<br>
+                        When is the squatter normally at premise?<br>
                         <input type="text" name="timeofday" id="timeofday">
                         <br />
                         <br />
                         Illicit drugs on property? :<br>
-                        <input type="checkbox" name="narc" value="y" id="narc"> Yes<br>
-                        <input type="checkbox" name="narc" value="n" id="narc"> No<br>
-                        <input type="checkbox" name="narc" value="s" id="narc"> Not Sure<br>
+                        <select name="narc">
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                            <option value="U">Unsure</option>
+                        </select>
+                        <br />
                         <br />
                         Have the police been notified of the squatter? :<br>
-                        <input type="checkbox" name="police" value="y" id="police"> Yes<br>
-                        <input type="checkbox" name="police" value="n" id="police"> No<br>
+                        <select name="police">
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                        <br />
                         <br />
                         Enter estimated start date of squatting:<br>
                         <input type="date" name="startsquat" id="startsquat">
                         <br />
-                        When is the squatter normally at premise? <br>
-                        <input type="text" name="datereported" id="datereported">
-                        <br />
+                
                         Please enter any additional comments below:<br>
                         <TEXTAREA Name="comments" ROWS=4 COLS=30 id="comments"></TEXTAREA>
                         <br />
                         <input id="submitgeo" type="submit" value="Submit Report">
                     </form>
-                <center>
-                    <div> </div>
-                    <h4>Map of Reported Squatters</h4>
-                    <div id="map" style="width:500px;height:500px;"></div><div>
-                        <br />
-                        <br />
-                        <br />
-                    </div>
-                    <br />
-                    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-                    <meta charset="utf-8">
-
-                </center>
+            
 
                 <script type="text/javascript">
 

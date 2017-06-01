@@ -152,7 +152,7 @@ ul#menu
 
 ul#menu li
 { float: left;
-  padding: 0 0 0 9px;
+  padding: 0 0 0 17px;
   list-style: none;
   margin: 1px 2px 0 0;
   background: #5A5A5A url(tab.png) no-repeat 0 0;}
@@ -184,14 +184,16 @@ ul#menu li a:hover
 { color: #E4EC04;}
 
 #site_content
-{ width: 880px;
+{ width: 1001px;
   overflow: hidden;
   margin: 20px auto 0 auto;
   padding: 0 0 10px 0;} 
 
 #sidebar_container
 { float: right;
-  width: 224px;}
+  width: 224px;
+ 
+}
 
 .sidebar_top
 { width: 222px;
