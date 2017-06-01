@@ -338,6 +338,7 @@
     <Content Include="Views\Owner\DetailsView.cshtml" />
     <Content Include="Views\Owner\AccountReportsView.cshtml" />
     <Content Include="Views\Owner\MyReportsView.cshtml" />
+    <Content Include="Views\Home\AboutUS.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
