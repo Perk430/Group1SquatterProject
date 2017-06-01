@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Group1FinalProject.Models;
 using System.Security.Principal;
+using Microsoft.AspNet.Identity;
 
 namespace Group1FinalProject.Controllers
 {
@@ -104,8 +105,7 @@ namespace Group1FinalProject.Controllers
 
             finaltable FindItem = db.finaltables.Find(UpdateName);
 
-            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
-            if (FindItem.username == loginusername)
+            if (FindItem.username == User.Identity.GetUserId())
             {
                 return View("MyReportsView", FindItem);
             }
@@ -115,8 +115,6 @@ namespace Group1FinalProject.Controllers
         public ActionResult SaveFlag(string flagname)
         {
             SquatDBEntities db = new SquatDBEntities();
-
-            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
 
             finaltable FindItem = db.finaltables.Find(flagname);
             string val = "";
@@ -134,7 +132,7 @@ namespace Group1FinalProject.Controllers
             FindItem.flagged = val;
 
             db.SaveChanges();
-            if(FindItem.username == loginusername)
+            if(FindItem.username == User.Identity.GetUserId())
             {
                 return RedirectToAction("MyReportsView");
             }
@@ -143,9 +141,7 @@ namespace Group1FinalProject.Controllers
         }
 
         public ActionResult SaveComments(finaltable ToBeUpdated)
-        {
-            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
-
+        {  
             SquatDBEntities db = new SquatDBEntities();
 
             finaltable FindItem = db.finaltables.Find(ToBeUpdated.address);
@@ -154,7 +150,7 @@ namespace Group1FinalProject.Controllers
 
             db.SaveChanges();
 
-            if (FindItem.username == loginusername)
+            if (FindItem.username == User.Identity.GetUserId())
             {
                 return RedirectToAction("MyReportsView");
             }
@@ -166,13 +162,11 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult UpdateComments(string ToBeUpdated)
         {
-            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
-            
             SquatDBEntities db = new SquatDBEntities();
 
             finaltable FindItem = db.finaltables.Find(ToBeUpdated);
 
-            if(FindItem.username == loginusername)
+            if(FindItem.username == User.Identity.GetUserId())
             {
                 return View("AccountReportsView", FindItem);
             }
@@ -183,7 +177,7 @@ namespace Group1FinalProject.Controllers
 
         public List<finaltable> GetAllMyRecords()
         {
-            string loginusername = Convert.ToString(WindowsIdentity.GetCurrent().User);
+            string loginusername = User.Identity.GetUserId();
 
             SquatDBEntities db = new SquatDBEntities();
 

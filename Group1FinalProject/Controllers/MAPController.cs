@@ -27,7 +27,7 @@ namespace Group1FinalProject.Controllers
             string reported = "";
 
             coordinates.flagged = "y";
-            coordinates.username = Convert.ToString(WindowsIdentity.GetCurrent().User);
+            coordinates.username = User.Identity.GetUserId();
             coordinates.datereported = DateTime.Now;
             coordinates.reportedtimes = 1;
 

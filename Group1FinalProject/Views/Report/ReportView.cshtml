@@ -180,7 +180,8 @@
                      for (var i = 0; i < modelarray.length; i++)
                      {
                          var location = modelarray[i].address;
-                         PreGeocodeAddress(location, PreLoadgeocoder, map);
+                         PreGeocodeAddress(location, PreLoadgeocoder, map)
+                         setTimeout(2000);
                      }
 
                      document.getElementById('submitgeo').addEventListener('click', function () {
@@ -197,7 +198,9 @@
                      var startsquat = document.getElementById('startsquat').value;
                      var datereported = document.getElementById('datereported').value;
                      var comments = document.getElementById('comments').value;
+
                      PassData(address, timeofday, narc, police, startsquat, datereported, comments);
+
                      geocoder.geocode({ 'address': address }, function (results, status) {
                          if (status === 'OK')
                          {
@@ -210,7 +213,7 @@
                              
                          } else
                          {
-                             console.log('Geocode was not successful for the following reason: ' + status);
+                             alert('Geocode was not successful for the following reason: ' + status);
                          }
                      });
                  }
@@ -230,9 +233,7 @@
 
                              })
                          } else
-                         {
-                             alert('Geocode was not successful for the following reason: ' + status);
-                         }
+                         {}
                      });
                  }
 
