@@ -49,15 +49,15 @@
         @foreach (var item in ViewBag.Data)
         {
             <tr>
-                <td>@item.address</td>
-                <td>@item.timeofday</td>
-                <td>@item.narc</td>
-                <td>@item.startsquat</td>
-                <td>@item.police</td>
-                <td>@item.datereported</td>
-                <td>@item.reportedtimes</td>
-                <td>@item.comments</td>
-                <td>@item.flagged</td>
+                <td style="text-align:center">@item.address</td>
+                <td style="text-align:center">@item.timeofday</td>
+                <td style="text-align:center">@item.narc</td>
+                <td style="text-align:center">@item.startsquat</td>
+                <td style="text-align:center">@item.police</td>
+                <td style="text-align:center">@item.datereported</td>
+                <td style="text-align:center">@item.reportedtimes</td>
+                <td style="text-align:center">@item.comments</td>
+                <td style="text-align:center">@item.flagged</td>
                 <td><a href="SaveFlag?flagname=@item.address">Flag</a></td>
                 <td><a href="UpdateComments?ToBeUpdated=@item.address">Edit Comments</a></td>
                 <td><a href="DeleteReport?DeleteName=@item.address" onclick="return confirm('Are you sure?')">Delete</a></td>
