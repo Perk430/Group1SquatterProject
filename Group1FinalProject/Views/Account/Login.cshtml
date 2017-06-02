@@ -20,7 +20,7 @@
             <div id="logo">
                 <div id="logo_text">
                     <!-- class="logo_colour", allows you to change the colour of the text -->
-                    <h1><a href="index.html">Squatter<span class="logo_colour"> Spotter</span></a></h1>
+                    <h1><a href="../Home">Squatter<span class="logo_colour"> Spotter</span></a></h1>
                     <h2>Protecting Your Neighborhood.</h2>
                 </div>
             </div>
@@ -85,12 +85,7 @@
                                 @Html.ActionLink("Forgot your password?", "ForgotPassword")
                             </p>*@
                         }
-                    </section>
-                </div>
-                <div class="col-md-4">
-                    <section id="socialLoginForm">
-                        @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                    </section>
+          
                 </div>
             </div>
         </center>
