@@ -20,20 +20,14 @@ namespace Group1FinalProject.Controllers
             return View();
         }
         
+        //this action is where we pull data from the API
         public ActionResult GetONBData(EntryData Input)
         {
-            //formatting for properties
-            //Input.Address1.ToString();
-            //Input.Address1.Replace(" ", "%20");
-
-            //Input.Address2.ToString();
-            //Input.Address2.Replace(" ", "%20").Replace(",","C");
-
-            //calling API with formatted inputs
+            //creates a new request and allows us to send data in the url
             HttpWebRequest request = WebRequest.CreateHttp($"https://search.onboard-apis.com/propertyapi/v1.0.0/property/detail?address1={Input.Address1}&address2={Input.Address2}");
 
             request.Accept = "application/xml";
-
+            //required headers the API requires before it will send data back
             request.Headers.Add("APIKey", "0ad6a63ba8d89e1de14de3893e417889");
             string oneLine = "";
             string absenteeind = "";
@@ -42,25 +36,28 @@ namespace Group1FinalProject.Controllers
             string house = "";
             string wallType = "";
             string garagetype = "";
-            //request.UserAgent = @"User-Agent: Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/53.0.2785.116 Safari/537.36";
+            
             try
             {
+                //gathering response from the API
                 HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-
+                //allows us to read the response and convert it to a string
                 StreamReader rd = new StreamReader(response.GetResponseStream());
 
                 string data = rd.ReadToEnd();
-
+                //creates a new xml document for which we can search on and call methods
                 XmlDocument XMLdataTest = new XmlDocument();
-
+                //loading the string into the xml doc
                 XMLdataTest.LoadXml(data);
 
                 try
                 {
+                    //we are grabbing a single node based on a element path and grabbing the inner text value
                     absenteeind = XMLdataTest.DocumentElement.SelectSingleNode("/Response/property/summary/absenteeInd").InnerText;
                 }
                 catch
                 {
+                    //return a value if no info is found
                     absenteeind = "No Info";
                 }
 
@@ -117,7 +114,7 @@ namespace Group1FinalProject.Controllers
             {
                 house = "Not a house!";
             }
-
+            //assigning the results to TempData so we can pass to the report controller
             TempData["oneLine"] = oneLine;
             TempData["absenteeind"] = absenteeind;
             TempData["propclass"] = propclass;
@@ -126,7 +123,7 @@ namespace Group1FinalProject.Controllers
             TempData["wallType"] = wallType;
             TempData["garagetype"] = garagetype;
 
-            // return View("../Home/ReportView");
+            
             return RedirectToAction("ReportView", "Report");
         }
     }

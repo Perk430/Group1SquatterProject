@@ -11,19 +11,14 @@ namespace Group1FinalProject.Controllers
     
     public class HomeController : Controller
     {
+        //Redirects to various pages in the program and sends login username to the view
         public ActionResult Index()
         {
-            if(User.Identity == null)
-            {
-                ViewBag.Name = null;
-            }
-            else
-            {
-                ViewBag.Name = User.Identity.GetUserName();
-            }
-
+            ViewBag.Name = User.Identity.GetUserName();
+           
             return View();
         }
+        
         [Authorize]
         public ActionResult OwnerView()
         {

@@ -11,9 +11,11 @@ namespace Group1FinalProject.Controllers
 {
     public class OwnerController : Controller
     {
+        SquatDBEntities db = new SquatDBEntities();
         // GET: DB
         public ActionResult OwnerView()
         {
+            //main action that sends all data to the ownerview by default
             ViewBag.Name = User.Identity.GetUserName();
 
             ViewBag.AllData = GetAllRecords();
@@ -22,20 +24,16 @@ namespace Group1FinalProject.Controllers
 
             return View();
         }
-
+        //method called to grab data from the db
         public List<finaltable> GetAllRecords()
         {
-            SquatDBEntities db = new SquatDBEntities();
-
             List<finaltable> Records = db.finaltables.ToList();
 
             return Records;
         }
-
+        //action that grabs the id from the url string and creates a new distinct list using lambda expression
         public ActionResult SearchAddress(string AddressID)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
             List<finaltable> AddressList = db.finaltables.Where(x => x.address.ToUpper().Contains(AddressID.ToUpper())).ToList();
 
             ViewBag.AllData = AddressList;
@@ -46,22 +44,19 @@ namespace Group1FinalProject.Controllers
         }
         public List<string> PullSearchFlagData()
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //returns distinct list allowing us to search on the flag status
             return db.finaltables.Select(x => x.flagged).Distinct().ToList();
         }
 
         public List<string> PullSearchPoliceData()
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //similar list allowing us to search on police data
             return db.finaltables.Select(x => x.police).Distinct().ToList();
         }
 
         public ActionResult ReturnFlagData(string SearchFlag)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //the action that takes the search value allowing to to return a new list
             List<finaltable> FlagList = db.finaltables.Where(x => x.flagged.ToUpper().Contains(SearchFlag.ToUpper())).ToList();
 
             ViewBag.AllData = FlagList;
@@ -73,8 +68,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult ReturnPoliceData(string SearchPolice)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            
             List<finaltable> PoliceList = db.finaltables.Where(x => x.police.ToUpper().Contains(SearchPolice.ToUpper())).ToList();
 
             ViewBag.AllData = PoliceList;
@@ -86,6 +80,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult DetailsView()
         {
+            //sends user id to the details view and allows us to display details on selected report
             ViewBag.Name = User.Identity.GetUserName();
 
             return View();
@@ -93,6 +88,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult AccountReportsView()
         {
+            //sends user id to the accounts report view and allows us to display details on selected report
             ViewBag.Name = User.Identity.GetUserName();
 
             return View();
@@ -108,8 +104,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult UnFlag(string UpdateName)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //allows take the url value and fing the correct item to flag
             finaltable FindItem = db.finaltables.Find(UpdateName);
 
             if (FindItem.username == User.Identity.GetUserId())
@@ -121,36 +116,47 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult SaveFlag(string flagname)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //changes the flag value in the owner view and saves changes
             finaltable FindItem = db.finaltables.Find(flagname);
-            string val = "";
 
-            if (FindItem.flagged.Trim() == "y")
+            if (FindItem.flagged == "Y")
             {
-                val = "n";
-            }
-
-            if (FindItem.flagged.Trim() == "n")
-            {
-                val = "y";
-            }
-
-            FindItem.flagged = val;
-
-            db.SaveChanges();
-            if(FindItem.username == User.Identity.GetUserId())
-            {
-                return RedirectToAction("MyReportsView");
+                FindItem.flagged = "N";
             }
             else
+            {
+                FindItem.flagged = "Y";
+            }
+          
+            db.SaveChanges();
+
             return RedirectToAction("OwnerView");
         }
 
-        public ActionResult SaveComments(finaltable ToBeUpdated)
-        {  
-            SquatDBEntities db = new SquatDBEntities();
 
+        public ActionResult SaveMyFlag(string flagname)
+        {
+            //changes the flag value in the myreports view and saves changes
+            finaltable FindItem = db.finaltables.Find(flagname);
+
+            if (FindItem.flagged == "Y")
+            {
+                FindItem.flagged = "N";
+            }
+            else
+            {
+                FindItem.flagged = "Y";
+            }
+
+            db.SaveChanges();
+         
+            return RedirectToAction("MyReportsView");
+                        
+        }
+
+        public ActionResult SaveComments(finaltable ToBeUpdated)
+        {
+            //allows us to save changes made to the comments field and limit access to non owners
             finaltable FindItem = db.finaltables.Find(ToBeUpdated.address);
 
             FindItem.comments = ToBeUpdated.comments;
@@ -169,9 +175,8 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult UpdateComments(string ToBeUpdated)
         {
+            //allows us to update changes made to the comments field and limit access to non owners
             ViewBag.Name = User.Identity.GetUserName();
-
-            SquatDBEntities db = new SquatDBEntities();
 
             finaltable FindItem = db.finaltables.Find(ToBeUpdated);
 
@@ -186,9 +191,8 @@ namespace Group1FinalProject.Controllers
 
         public List<finaltable> GetAllMyRecords()
         {
+            //grabs all records that match user identity in the myreportsview
             string loginusername = User.Identity.GetUserId();
-
-            SquatDBEntities db = new SquatDBEntities();
 
             List<finaltable> Records = db.finaltables.Where(x => x.username == loginusername).ToList();
 
@@ -198,8 +202,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult DeleteReport(string DeleteName)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //action that allows us to delete reports
             finaltable ToDelete = db.finaltables.Find(DeleteName);
 
             db.finaltables.Remove(ToDelete);
@@ -211,8 +214,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult TickReport(string ReportCount)
         {
-            SquatDBEntities db = new SquatDBEntities();
-
+            //action that allows us to add a value to the times reported
             finaltable ReportNumber = db.finaltables.Find(ReportCount);
 
             int count = Convert.ToInt32(ReportNumber.reportedtimes);
@@ -228,7 +230,7 @@ namespace Group1FinalProject.Controllers
 
         public ActionResult SortDateDesc(string OrderValue)
         {
-            SquatDBEntities db = new SquatDBEntities();
+            //action that allows us to search in ascending and descending values by date
             if(OrderValue == "Desc")
             {
                 List<finaltable> DateList = db.finaltables.OrderByDescending(x => x.datereported).ToList();
